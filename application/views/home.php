@@ -47,8 +47,10 @@ if (!$this->session->userdata('logged_in')) {
                 <span class="tooltip">Settings</span>
             </li>
             <li>
+                <a href="<?= base_url('Auth/logout'); ?>">
                 <i class="fa-solid fa-right-from-bracket"></i>
-                <span class="tooltip">Logout</span>
+                <span class="tooltip" href="<?= base_url('Auth/logout'); ?>">Logout</span>
+                </a>
             </li>
         </ul>
     </div>
@@ -150,7 +152,7 @@ if (!$this->session->userdata('logged_in')) {
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                         TOTAL KEHADIRAN</div>
-                                    <div class="h6 mb-0 font-weight-bold text-gray-800">100</div>
+                                    <div class="h6 mb-0 font-weight-bold text-gray-800">100%</div>
                                 </div>
                                 <div class="col-auto">
                                     <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
