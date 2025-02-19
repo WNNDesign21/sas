@@ -10926,9 +10926,11 @@ a:focus {
 }
 
 .bg-login-image {
-  background-image: url('../img/bg.png');
+  background-image: url('../img/sas.png');
   background-position: center;
-  background-size: cover;
+  background-size: 400px;
+  background-repeat: no-repeat;
+
 }
 
 .bg-register-image {
@@ -11359,4 +11361,20 @@ body.sidebar-toggled footer.sticky-footer {
   align-items: center;
   align-content: center;
   animation: zoomInFade 1.5s ease-in-out;
+}
+@keyframes leftInFade {
+  0% {
+      opacity: 0;
+      transform: translateX(-250px);
+  }
+  100% {
+      opacity: 1;
+      transform: translateX(0);
+  }
+}
+
+.left-in-fade {
+  align-items: center;
+  align-content: center;
+  animation: leftInFade 1.5s ease-in-out;
 }
