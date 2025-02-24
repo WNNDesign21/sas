@@ -75,7 +75,7 @@ body {
   top: 50%;
   transform: translateY(-50%);
   width: 60px;
-  background: linear-gradient(180deg, #800000 0%, #4B0000 100%); 
+  background: linear-gradient(90deg, #992A37 0%, #FF5356 50%, #BC2030 100%);
   opacity: 0.9; /* Transparan */
   backdrop-filter: blur(10px); /* Efek blur */
   -webkit-backdrop-filter: blur(10px); /* Untuk Safari */
@@ -117,7 +117,7 @@ body {
 .sidebar ul li .tooltip {
   position: absolute;
   left: 70px;  
-  background: maroon;
+  background: linear-gradient(90deg, #992A37 0%, #FF5356 50%, #BC2030 100%);
   color: white;
   padding: 5px 10px;
   border-radius: 5px;
