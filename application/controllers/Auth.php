@@ -36,6 +36,8 @@ class Auth extends CI_Controller
                 'id_user' => $user['id_user'],
                 'nama_user' => $user['nama_user'],
                 'foto_profil' => $user['foto_profil'],
+                'fakultas' => $user['fakultas'], // Tambahkan fakultas
+                'prodi' => $user['prodi'],       // Tambahkan prodi
                 'logged_in' => TRUE
             ];
             $this->session->set_userdata($data);
@@ -57,28 +59,24 @@ class Auth extends CI_Controller
 
     public function upload_foto()
     {
-        if(!$this->session->userdata('logged_in'))
-        {
+        if (!$this->session->userdata('logged_in')) {
             redirect('auth');
         }
         $config['upload_path'] = 'assets/foto_profil/';
         $config['allowed_types'] = 'jpg|png|jpeg';
-        $config['file_name'] = 'profil_'.$this->session->userdata('user_id');
+        $config['file_name'] = 'profil_' . $this->session->userdata('user_id');
 
-        $this->load->library('upload',$config);
+        $this->load->library('upload', $config);
 
-        if ($this->upload->do_upload('foto_profil'))
-        {
-            $file_data=$this->upload->data();
-            $file_path='assets/foto_profil/'.$file_data['file_name'];
+        if ($this->upload->do_upload('foto_profil')) {
+            $file_data = $this->upload->data();
+            $file_path = 'assets/foto_profil/' . $file_data['file_name'];
 
-            $this->M_Login->update_foto_profil($this->session->userdata('user_id'),$file_path);
-            $this->session->set_userdata('foto_profil',$file_path);
+            $this->M_Login->update_foto_profil($this->session->userdata('user_id'), $file_path);
+            $this->session->set_userdata('foto_profil', $file_path);
             redirect('home');
-        }
-        else
-        {
-            $this->session->set_flashdata('error',$this->upload->display_errors());
+        } else {
+            $this->session->set_flashdata('error', $this->upload->display_errors());
             redirect('home');
         }
     }

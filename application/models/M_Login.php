@@ -10,6 +10,18 @@ class M_Login extends CI_Model
 
         // Cek apakah user ditemukan dan password benar
         if ($user && $user['password'] == $password) {
+
+
+            $this->db->select('fakultas, prodi');
+            $this->db->where('npm', $user['id_user']);  // Sesuaikan dengan kolom yang sesuai di tabel mhs
+            $mhs_query = $this->db->get('mhs');  // Tabel mahasiswa
+
+            if ($mhs_query->num_rows() > 0) {
+                // Ambil data fakultas dan prodi dari tabel mhs
+                $mhs_data = $mhs_query->row_array();
+                $user['fakultas'] = $mhs_data['fakultas'];
+                $user['prodi'] = $mhs_data['prodi'];
+            }
             return $user;
         }
         return false;
@@ -31,7 +43,7 @@ class M_Login extends CI_Model
     public function update_foto_profil($id_user, $foto_profil)
     {
         $this->db->where('id_user', $id_user);
-        return $this->db->update('user',['foto_profil'=>$foto_profil]);
+        return $this->db->update('user', ['foto_profil' => $foto_profil]);
     }
 
 }
