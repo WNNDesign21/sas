@@ -26,8 +26,9 @@ if (!$this->session->userdata('logged_in')) {
     <!-- Custom styles for this template-->
     <link rel="stylesheet" type="text/css" href="<?= base_url('assets/css/sb-admin-2.css'); ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-
-
+    <script>
+        var base_url = "<?= base_url(); ?>"; // Pastikan base_url didefinisikan sebelum a_chart.js
+    </script>
 </head>
 
 <body id="page-top" class="bg-white">
@@ -35,21 +36,27 @@ if (!$this->session->userdata('logged_in')) {
     <div class="sidebar">
         <ul>
             <li>
-                <i class="fa-solid fa-house"></i>
-                <span class="tooltip">Dashboard</span>
-            </li>
-            <li>
-                <i class="fa-solid fa-user"></i>
-                <span class="tooltip">Profile</span>
-            </li>
-            <li>
-                <i class="fa-solid fa-gear"></i>
-                <span class="tooltip">Settings</span>
+                <a href="<?= base_url('Auth/logout'); ?>">
+                    <i class="fa-solid fa-house"></i>
+                    <span class="tooltip">Logout</span>
+                </a>
             </li>
             <li>
                 <a href="<?= base_url('Auth/logout'); ?>">
-                <i class="fa-solid fa-right-from-bracket"></i>
-                <span class="tooltip" href="<?= base_url('Auth/logout'); ?>">Logout</span>
+                    <i class="fa-solid fa-user"></i>
+                    <span class="tooltip">Logout</span>
+                </a>
+            </li>
+            <li>
+                <a href="<?= base_url('Auth/logout'); ?>">
+                    <i class="fa-solid fa-gear"></i>
+                    <span class="tooltip">Logout</span>
+                </a>
+            </li>
+            <li>
+                <a href="<?= base_url('Auth/logout'); ?>">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span class="tooltip">Logout</span>
                 </a>
             </li>
         </ul>
@@ -119,7 +126,8 @@ if (!$this->session->userdata('logged_in')) {
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
                 <!-- <h1 class="h3 mb-0 text-gray-800">SAS - Smart Attendance Student</h1> -->
-                <img class="left-in-fade" src="<?= base_url('assets/img/sas.png'); ?>" style="height:50px; margin-top:20px; margin-left: 100px" alt="">
+                <img class="left-in-fade" src="<?= base_url('assets/img/sas.png'); ?>"
+                    style="height:50px; margin-top:20px; margin-left: 100px" alt="">
                 <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                     <i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
             </div>
@@ -135,7 +143,7 @@ if (!$this->session->userdata('logged_in')) {
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                         NAMA</div>
-                                    <div class="h6 mb-0 font-weight-bold text-gray-800">FAJAR NUR FARRIJAL</div>
+                                    <div class="h6 mb-0 font-weight-bold text-gray-800"><?= $this->session->userdata('nama_user'); ?></div>
                                 </div>
                                 <div class="col-auto">
                                     <i class="fas fa-graduation-cap fa-2x text-gray-300"></i>
@@ -222,7 +230,7 @@ if (!$this->session->userdata('logged_in')) {
                         </div>
                         <!-- Card Body / Image Place -->
                         <div class="card-body d-flex justify-content-center align-items-center">
-                            <img src="assets/img/jarr.png" alt="Deskripsi gambar" width="320" class="zoom-in-fade">
+                            <img src="<?= base_url($this->session->userdata('foto_profil')?:'assets/foto_profil/sas.png'); ?>" alt="Deskripsi gambar" width="320" class="zoom-in-fade">
                         </div>
                     </div>
                 </div>
@@ -250,7 +258,7 @@ if (!$this->session->userdata('logged_in')) {
                         <!-- Card Body for Chart -->
                         <div class="card-body">
                             <div class="chart-area">
-                                <canvas id="myAreaChart"></canvas>
+                                <canvas id="absensiChart1"></canvas>
                             </div>
                         </div>
                     </div>
@@ -455,6 +463,9 @@ if (!$this->session->userdata('logged_in')) {
         </div>
     </div>
 
+
+
+
     <!-- Bootstrap core JavaScript-->
     <script src="assets/vendor/jquery/jquery.min.js"></script>
     <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -471,6 +482,7 @@ if (!$this->session->userdata('logged_in')) {
     <!-- Page level custom scripts -->
     <script src="assets/js/demo/chart-area-demo.js"></script>
     <script src="assets/js/demo/chart-pie-demo.js"></script>
+    <script src="assets/vendor/chart.js/a_chart.js"></script>
 
 </body>
 

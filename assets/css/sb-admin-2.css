@@ -75,7 +75,10 @@ body {
   top: 50%;
   transform: translateY(-50%);
   width: 60px;
-  background: #2c3e50;
+  background: linear-gradient(180deg, #800000 0%, #4B0000 100%); 
+  opacity: 0.9; /* Transparan */
+  backdrop-filter: blur(10px); /* Efek blur */
+  -webkit-backdrop-filter: blur(10px); /* Untuk Safari */
   padding: 10px 0;
   border-radius: 50px 50px 50px 50px;
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
@@ -92,14 +95,15 @@ body {
   position: relative;
   padding: 15px;
   display: flex;
-  align-items: center;
+  margin-left: -3px;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: transform 0.3s ease;
 }
 
 .sidebar ul li:hover {
-  background: #1abc9c;
+  background: transparent;
   border-radius: 50px 50px 50px 50px;
+  transform: scale(1.2);
 }
 
 .sidebar ul li i {
@@ -112,21 +116,21 @@ body {
 /* Tooltip muncul hanya saat hover */
 .sidebar ul li .tooltip {
   position: absolute;
-  left: 50px;
-  background: #1abc9c;
+  left: 70px;  
+  background: maroon;
   color: white;
   padding: 5px 10px;
   border-radius: 5px;
   white-space: nowrap;
   opacity: 0;
-  transition: opacity 0.3s ease, transform 0.2s ease;
-  transform: translateX(-10px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  transform: translateY(-100%) translateX(-30px);
   pointer-events: none;
 }
 
 .sidebar ul li:hover .tooltip {
   opacity: 1;
-  transform: translateX(0);
+  transform: translateX(0) translateY(-100%);
 }
 [tabindex="-1"]:focus:not(:focus-visible) {
   outline: 0 !important;

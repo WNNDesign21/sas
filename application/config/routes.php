@@ -51,6 +51,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $route['default_controller'] = 'Auth';
 $route['home'] = 'Page/home';
+$route['Auth/get_chart_data'] = 'Auth/get_chart_data';
 $route['logout'] = 'Auth/logout';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
