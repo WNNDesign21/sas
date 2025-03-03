@@ -117,7 +117,11 @@ body {
 .sidebar ul li .tooltip {
   position: absolute;
   left: 70px;  
+<<<<<<< HEAD
   background: linear-gradient(90deg, maroon 0%, #FF5356 50%, maroon 100%);
+=======
+  background: linear-gradient(90deg, maroon 0%, #ff0004 50%, maroon 100%);
+>>>>>>> d6cdcbbfda4436e811ddd51987048a2c21224c68
   color: white;
   padding: 5px 10px;
   border-radius: 5px;
