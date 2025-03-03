@@ -88,7 +88,7 @@
                     <!-- Card Body / Image Place -->
                     <div class="card-body d-flex justify-content-center align-items-center">
                         <img src="<?= base_url($this->session->userdata('foto_profil') ?: 'assets/foto_profil/hu.jpg'); ?>"
-                            alt="Deskripsi gambar" width="320" class="zoom-in-fade">
+                            alt="Deskripsi gambar" width="320" class="zoom-in-fade" style="margin-top">
                     </div>
                 </div>
             </div>
