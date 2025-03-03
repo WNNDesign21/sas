@@ -41,7 +41,7 @@ class Auth extends CI_Controller
                 'logged_in' => TRUE
             ];
             $this->session->set_userdata($data);
-            redirect('home');
+            redirect(  'home');
         } else {
             $this->session->set_flashdata('error', 'Email atau password salah!');
             redirect('');

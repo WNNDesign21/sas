@@ -50,6 +50,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 $route['default_controller'] = 'Auth';
+$route['api/auth/login'] = 'Auth/proses_login';
 $route['home'] = 'Page/home';
 $route['Auth/get_chart_data'] = 'Auth/get_chart_data';
 $route['logout'] = 'Auth/logout';
