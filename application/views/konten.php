@@ -94,7 +94,7 @@
             </div>
             <!-- Area Card for Chart -->
             <div class="col-xl-8 col-lg-7">
-                <div class="card shadow mb-0">
+                <div class="card shadow mb-4">
                     <!-- Card Header for Chart & Dropdown -->
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                         <h6 class="m-0 font-weight-bold text-primary">Absensi</h6>
