@@ -5,7 +5,7 @@
         <div class="d-sm-flex align-items-center justify-content-between">
             <!-- <h1 class="h3 mb-0 text-gray-800">SAS - Smart Attendance Student</h1> -->
             <img class="left-in-fade" src="<?= base_url('assets/img/sas.png'); ?>"
-                style="height:50px; margin-top:20px; margin-left: 100px" alt="">
+                style="height:50px; margin-top:20px; margin-left: 12%" alt="">
         </div>
         <!-- Content Row -->
         <div class="row justify-content-end">
@@ -80,13 +80,13 @@
         <div class="row">
             <!-- Card for Image -->
             <div class="col-xl-4 col-lg-7 d-flex justify-content-center align-items-center">
-                <div class="card bg-transparent border-0 shadow-none mb-4">
+                <div class="card bg-transparent border-0 shadow-none mb-0">
                     <!-- Card Header - Dropdown -->
                     <div
                         class="card-header bg-transparent border-0 py-3 d-flex flex-row align-items-center justify-content-center">
                     </div>
                     <!-- Card Body / Image Place -->
-                    <div class="card-body d-flex justify-content-center align-items-center">
+                    <div class="card-body-img d-flex justify-content-center align-items-center">
                         <img src="<?= base_url($this->session->userdata('foto_profil') ?: 'assets/foto_profil/hu.jpg'); ?>"
                             alt="Deskripsi gambar" width="320" class="zoom-in-fade" style="margin-top">
                     </div>
@@ -94,7 +94,7 @@
             </div>
             <!-- Area Card for Chart -->
             <div class="col-xl-8 col-lg-7">
-                <div class="card shadow mb-4">
+                <div class="card shadow mb-0">
                     <!-- Card Header for Chart & Dropdown -->
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                         <h6 class="m-0 font-weight-bold text-primary">Absensi</h6>
@@ -126,47 +126,12 @@
         <!-- Content Row -->
         <div class="row">
             <!-- Content Column -->
-            <div class="col-lg-6 mb-4">
+            <div class="col-lg-12 mb-4">
                 <!-- Jadwal -->
                 <?php $this->load->view('jadwal'); ?>
                 <!-- Jadwal -->
 
             </div>
-            <div class="col-lg-6 mb-4">
-                <!-- Illustrations -->
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Illustrations</h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="text-center">
-                            <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
-                                src="img/undraw_posting_photo.svg" alt="...">
-                        </div>
-                        <p>Add some quality, svg illustrations to your project courtesy of <a target="_blank"
-                                rel="nofollow" href="https://undraw.co/">unDraw</a>, a
-                            constantly updated collection of beautiful svg images that you can use
-                            completely free and without attribution!</p>
-                        <a target="_blank" rel="nofollow" href="https://undraw.co/">Browse Illustrations on
-                            unDraw &rarr;</a>
-                    </div>
-                </div>
-                <!-- Approach -->
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Development Approach</h6>
-                    </div>
-                    <div class="card-body">
-                        <p>SB Admin 2 makes extensive use of Bootstrap 4 utility classes in order to reduce
-                            CSS bloat and poor page performance. Custom CSS classes are used to create
-                            custom components and custom utility classes.</p>
-                        <p class="mb-0">Before working with this theme, you should become familiar with the
-                            Bootstrap framework, especially the utility classes.</p>
-                    </div>
-                </div>
-
-            </div>
         </div>
-
     </div>
 </div>

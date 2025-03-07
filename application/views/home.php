@@ -12,23 +12,29 @@ if (!$this->session->userdata('logged_in')) {
 </head>
 
 <body id="page-top" class="bg-white">
-    <!-- Floating Sidebar -->
-    <?php $this->load->view('sidebar'); ?>
-    <!-- Floating Sidebar -->
+    <!-- Splash Screen -->
+    <div class="splash-screen" id="splash">
+        <img src="assets/img/sas.png" alt="Loading">
+    </div>
+    <div id="main-content" style="display: none;">
+        <!-- Floating Sidebar -->
+        <?php $this->load->view('sidebar'); ?>
+        <!-- Floating Sidebar -->
 
-    <!-- Content -->
-    <?php $this->load->view('konten'); ?>
-    <!-- Content -->
+        <!-- Content -->
+        <?php $this->load->view('konten'); ?>
+        <!-- Content -->
 
-    <!-- Footer -->
-    <?php $this->load->view('footer'); ?>
-    <!-- Footer -->
+        <!-- Footer -->
+        <?php $this->load->view('footer'); ?>
+        <!-- Footer -->
+    </div>
 
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
-    
+
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -61,6 +67,18 @@ if (!$this->session->userdata('logged_in')) {
     <script src="assets/js/demo/chart-area-demo.js"></script>
     <script src="assets/js/demo/chart-pie-demo.js"></script>
     <script src="assets/vendor/chart.js/a_chart.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            setTimeout(() => {
+                document.getElementById("splash").classList.add("hidden");
+                setTimeout(() => {
+                    document.getElementById("splash").style.display = "none";
+                    document.getElementById("main-content").style.display = "block";
+                }, 500);
+            }, 2000); // Splash screen will be visible for 2 seconds
+        });
+    </script>
 </body>
 
 </html>
