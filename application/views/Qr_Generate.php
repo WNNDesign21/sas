@@ -107,15 +107,36 @@ if (strtoupper($this->session->userdata('akses')) !== 'DOSEN') {
                                             <input type="number" name="pertemuan" class="form-control" required>
                                         </div>
 
-                                        <button type="submit" class="btn btn-primary w-100">Generate QR Code</button>
+                                        <button type="submit" class="btn btn-primary w-100 mb-3">Generate QR
+                                            Code</button>
+                                        <button class="btn btn-primary w-100" onclick="toggleQRCode()">Tampilkan /
+                                            Sembunyikan QR Code</button>
                                     </form>
                                 </div>
                             </div>
                         </div>
+                        <!-- QR Code Terbaru -->
+                        <div class="col-lg-6">
+                            <div class="card shadow mb-4">
+                                <div class="card-body text-center">
+                                    <h5>QR Code Terbaru</h5>
+                                    <?php
+                                    $qr_terbaru = $this->db->order_by('id', 'DESC')->get('qr_codes')->row_array();
+                                    if ($qr_terbaru): ?>
+                                        <a href="#" onclick="showQrCode('<?= base_url($qr_terbaru['qr_image']) ?>')">
+                                            <img src="<?= base_url($qr_terbaru['qr_image']) ?>" width="200"
+                                                class="img-fluid shadow-lg mt-3 qr-thumbnail mb-3">
+                                        </a>
+                                        <p><strong><?= $qr_terbaru['qr_text'] ?></strong></p>
+                                    <?php else: ?>
+                                        <p>Belum ada QR Code yang di-generate.</p>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-
                     <!-- Tabel Daftar QR Code -->
-                    <div class="card shadow mb-4">
+                    <div class="card shadow mb-4" id="qrCodeContainer" style="display: none;">
                         <div class="card-body">
                             <h3 class="mb-3">Daftar QR Code</h3>
                             <table class="table table-bordered text-center">
@@ -201,6 +222,25 @@ if (strtoupper($this->session->userdata('akses')) !== 'DOSEN') {
             }, 1000);
         });
     </script>
+    <script>
+        function showQrCode(qrUrl) {
+            document.getElementById('qrModalImg').src = qrUrl;
+            var qrModal = new bootstrap.Modal(document.getElementById('qrModal'));
+            qrModal.show();
+        }
+    </script>
+    <script>
+        function toggleQRCode() {
+            var qrContainer = document.getElementById("qrCodeContainer");
+
+            if (qrContainer.style.display === "none") {
+                qrContainer.style.display = "block";
+            } else {
+                qrContainer.style.display = "none";
+            }
+        }
+    </script>
+
 
 </body>
 
