@@ -1,13 +1,27 @@
 <!DOCTYPE html>
 <html lang="id">
-<?php if ($this->session->userdata('akses') !== 'DOSEN'): ?>
+
+<?php
+// Pastikan hanya dosen yang bisa mengakses halaman ini
+if (strtoupper($this->session->userdata('akses')) !== 'DOSEN') {
+    ?>
     <script>
         alert("Anda tidak memiliki akses ke halaman ini!");
-        window.location.href = "<?= base_url('auth') ?>"; // Redirect ke halaman utama
+        window.location.href = "<?= base_url('auth') ?>"; // Redirect ke halaman login
     </script>
-<?php exit; ?>
+    <?php exit; ?>
+<?php } ?>
+<?php if ($this->session->flashdata('error')): ?>
+    <script>
+        alert("<?= $this->session->flashdata('error'); ?>");
+    </script>
 <?php endif; ?>
 
+<?php if ($this->session->flashdata('success')): ?>
+    <script>
+        alert("<?= $this->session->flashdata('success'); ?>");
+    </script>
+<?php endif; ?>
 
 
 <head>
@@ -42,19 +56,19 @@
 
 <body id="page-top">
     <div class="splash-screen" id="splash">
-        <img src="assets/img/sas.png" alt="Loading">
+        <img src="<?= base_url('assets/img/sas.png'); ?>" alt="Loading">
     </div>
+
     <!-- Page Wrapper -->
     <div id="wrapper" style="display: none;">
 
         <!-- Sidebar -->
-        <?php $this->load->view('sidebar'); ?>
+        <?php $this->load->view('templates/sidebar_dosen'); ?>
         <!-- End Sidebar -->
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
             <div class="d-sm-flex align-items-center justify-content-between">
-                <!-- <h1 class="h3 mb-0 text-gray-800">SAS - Smart Attendance Student</h1> -->
                 <img class="left-in-fade" src="<?= base_url('assets/img/sas.png'); ?>"
                     style="height:50px; margin-top:20px; margin-left: 12%; margin-bottom: 2%" alt="">
             </div>
@@ -71,6 +85,15 @@
                                     <form method="POST" action="<?= base_url('QrController/generate') ?>">
                                         <div class="mb-3">
                                             <label class="form-label">Mata Kuliah</label>
+                                            <?php
+                                            $nidn = $this->session->userdata('id_user');
+                                            $mata_kuliah = $this->db->query("
+                                                SELECT DISTINCT mata_kuliah.id_mk, mata_kuliah.nama_mk 
+                                                FROM jadwal 
+                                                JOIN mata_kuliah ON mata_kuliah.id_mk = jadwal.id_mk 
+                                                WHERE jadwal.nidn = '$nidn'
+                                            ")->result_array();
+                                            ?>
                                             <select name="mata_kuliah" class="form-control" required>
                                                 <option value="">Pilih Mata Kuliah</option>
                                                 <?php foreach ($mata_kuliah as $mk): ?>
@@ -104,11 +127,23 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($this->db->order_by('id', 'DESC')->get('qr_codes')->result_array() as $qr): ?>
+                                    <?php
+                                    $qr_codes = $this->db->query("
+                                    SELECT qr_codes.*, mata_kuliah.nama_mk, jadwal.pertemuan 
+                                    FROM qr_codes 
+                                    JOIN mata_kuliah ON qr_codes.id_mk = mata_kuliah.id_mk
+                                    JOIN jadwal ON jadwal.id_mk = mata_kuliah.id_mk 
+                                    WHERE jadwal.nidn = '$nidn'
+                                    AND qr_codes.pertemuan = jadwal.pertemuan
+                                    ORDER BY qr_codes.id DESC
+                                ")->result_array();
+
+
+                                    foreach ($qr_codes as $qr):
+                                        ?>
                                         <tr>
-                                            <td><?= $this->db->get_where('mata_kuliah', ['id_mk' => $qr['id_mk']])->row()->nama_mk ?>
-                                            </td>
-                                            <td><?= $qr['pertemuan'] ?></td>
+                                            <td><?= $qr['nama_mk'] ?></td>
+                                            <td>Pertemuan ke-<?= $qr['pertemuan'] ?></td>
                                             <td>
                                                 <a href="#" data-bs-toggle="modal" data-bs-target="#qrModal"
                                                     onclick="showQrCode('<?= base_url($qr['qr_image']) ?>')">
@@ -122,14 +157,19 @@
                             </table>
                         </div>
                     </div>
+
                 </div>
                 <!-- /.container-fluid -->
+
             </div>
             <!-- End of Main Content -->
+
         </div>
         <!-- End Content Wrapper -->
+
     </div>
     <!-- End Page Wrapper -->
+
     <!-- Modal Bootstrap -->
     <div class="modal fade" id="qrModal" tabindex="-1" aria-labelledby="qrModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -144,13 +184,13 @@
             </div>
         </div>
     </div>
-    <!-- JavaScript untuk Menampilkan QR Code di Modal -->
+
+    <!-- JavaScript -->
     <script>
         function showQrCode(qrUrl) {
             document.getElementById('qrModalImg').src = qrUrl;
         }
-    </script>
-    <script>
+
         document.addEventListener("DOMContentLoaded", function () {
             setTimeout(() => {
                 document.getElementById("splash").classList.add("hidden");
@@ -158,9 +198,10 @@
                     document.getElementById("splash").style.display = "none";
                     document.getElementById("wrapper").style.display = "block";
                 }, 500);
-            }, 1000); // Splash screen will be visible for 2 seconds
+            }, 1000);
         });
     </script>
+
 </body>
 
 </html>

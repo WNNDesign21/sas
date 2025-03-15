@@ -10,4 +10,8 @@ class Page extends CI_Controller {
         // Menampilkan halaman tables.php
         $this->load->view('dashboard/home');
 	}
+	public function dosen_home() {
+        // Menampilkan halaman tables.php
+        $this->load->view('dashboard/dosen_home');
+	}
 }

@@ -22,6 +22,16 @@ class M_Login extends CI_Model
                 $user['fakultas'] = $mhs_data['fakultas'];
                 $user['prodi'] = $mhs_data['prodi'];
             }
+            $this->db->select('fakultas');
+            $this->db->where('nidn', $user['id_user']);
+            $dosen_query = $this->db->get('dosen');
+
+            if ($dosen_query->num_rows() > 0) {
+                $dosen_data = $dosen_query->row_array();
+                $user['fakultas_dosen'] = $dosen_data['fakultas']; // Tambahkan fakultas dosen
+            } else {
+                $user['fakultas_dosen'] = null; // Jika bukan dosen, set null
+            }
             return $user;
         }
         return false;

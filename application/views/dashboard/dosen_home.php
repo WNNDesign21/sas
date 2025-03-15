@@ -6,10 +6,10 @@ if (!$this->session->userdata('logged_in')) {
     exit;
 }
 ?>
-<?php if ($this->session->userdata('akses') !== 'MHS'): ?>
+<?php if ($this->session->userdata('akses') !== 'DOSEN'): ?>
     <script>
         alert("Anda tidak memiliki akses ke halaman ini!");
-        window.location.href = "<?= base_url('dosen_home') ?>"; // Redirect ke halaman utama
+        window.location.href = "<?= base_url('auth') ?>"; // Redirect ke halaman utama
     </script>
 <?php exit; ?>
 <?php endif; ?>
@@ -25,11 +25,11 @@ if (!$this->session->userdata('logged_in')) {
     </div>
     <div id="main-content" style="display: none;">
         <!-- Floating Sidebar -->
-        <?php $this->load->view('templates/sidebar'); ?>
+        <?php $this->load->view('templates/sidebar_dosen'); ?>
         <!-- Floating Sidebar -->
 
         <!-- Content -->
-        <?php $this->load->view('konten'); ?>
+        <?php $this->load->view('konten_dosen'); ?>
         <!-- Content -->
 
         <!-- Footer -->

@@ -12,7 +12,7 @@ class QrController extends CI_Controller
         $this->load->library('ciqrcode'); // Pastikan ini ada
         // Cek apakah user sudah login
         if (!$this->session->userdata('logged_in')) {
-            redirect('AuthController/login'); // Redirect ke halaman login jika belum login
+            redirect('auth/login'); // Redirect ke halaman login jika belum login
         }
 
         // Cek apakah user memiliki akses sebagai Dosen
@@ -30,6 +30,20 @@ class QrController extends CI_Controller
     {
         $id_mk = $this->input->post('mata_kuliah');
         $pertemuan = $this->input->post('pertemuan');
+
+        // 🔍 Cek apakah QR Code untuk pertemuan ini sudah ada
+        $cek_qr = $this->db->get_where('qr_codes', [
+            'id_mk' => $id_mk,
+            'pertemuan' => $pertemuan
+        ])->row_array();
+
+        // ❌ Jika QR Code sudah ada, beri pesan error dan kembalikan ke halaman sebelumnya
+        if ($cek_qr) {
+             // ❌ Jika QR Code sudah ada, beri pesan error
+        $this->session->set_flashdata('error', 'QR Code untuk pertemuan ini sudah dibuat sebelumnya!');
+        redirect('QrController');
+        return;
+        }
 
         $mk = $this->QrModel->getMataKuliahById($id_mk);
         $qr_text = "Mata Kuliah: " . $mk['nama_mk'] . " | Pertemuan: " . $pertemuan;
@@ -114,6 +128,28 @@ class QrController extends CI_Controller
         imagecopy($cut, $dst_im, 0, 0, $dst_x, $dst_y, $src_w, $src_h);
         imagecopy($cut, $src_im, 0, 0, $src_x, $src_y, $src_w, $src_h);
         imagecopymerge($dst_im, $cut, $dst_x, $dst_y, 0, 0, $src_w, $src_h, $pct);
+    }
+    public function attendance()
+    {
+        // Ambil NIDN dari session
+        $nidn = $this->session->userdata('id_user');
+
+        // Pastikan user yang login adalah dosen
+        if ($this->session->userdata('akses') !== 'DOSEN') {
+            $this->session->set_flashdata('error', 'Anda tidak memiliki akses ke halaman ini.');
+            redirect('auth');
+            exit;
+        }
+
+        // Load model jika belum dimuat
+        $this->load->model('M_attendance');
+
+        // Ambil jadwal berdasarkan NIDN dosen yang login
+        $data['jadwal'] = $this->M_attendance->getJadwalByDosen($nidn);
+        $data['qr_codes'] = $this->M_attendance->getQrByDosen($nidn);
+
+        // Load tampilan dengan data yang sudah difilter
+        $this->load->view('attendance_view', $data);
     }
 }
 ?>

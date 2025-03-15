@@ -39,6 +39,7 @@ class Auth extends CI_Controller
                 'fakultas' => $user['fakultas'], // Tambahkan fakultas
                 'prodi' => $user['prodi'],       // Tambahkan prodi
                 'akses' => $user['akses'],       // Tambahkan prodi
+                'fakultas_dosen' => $user['fakultas_dosen'],       // Tambahkan prodi
                 'logged_in' => TRUE
             ];
             $this->session->set_userdata($data);    
@@ -47,7 +48,7 @@ class Auth extends CI_Controller
             if ($this->session->userdata('akses') === 'MHS') {
                 redirect('home'); // Halaman mahasiswa
             } elseif ($this->session->userdata('akses') === 'DOSEN') {
-                redirect('home'); // Halaman dosen
+                redirect('dosen_home'); // Halaman dosen
             } else {
                 $this->session->set_flashdata('error', 'Akses tidak dikenali!');
                 redirect('auth'); // Redirect kembali ke halaman login

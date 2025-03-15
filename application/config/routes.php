@@ -52,6 +52,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'Auth';
 $route['api/auth/login'] = 'Auth/proses_login';
 $route['home'] = 'Page/home';
+$route['dosen_home'] = 'Page/dosen_home';
 $route['attendance'] = 'QrController/index';
 $route['add_user'] = 'UserController';
 $route['Auth/get_chart_data'] = 'Auth/get_chart_data';

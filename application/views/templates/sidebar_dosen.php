@@ -1,7 +1,7 @@
 <div class="sidebar">
     <ul>
         <li>
-            <a href="<?= base_url('Auth/index'); ?>">
+            <a href="<?= base_url('dosen_home'); ?>">
                 <i class="fa-solid fa-house"></i>
                 <span class="tooltip">Dashboard</span>
             </a>
@@ -10,6 +10,12 @@
             <a href="<?= base_url('Auth/logout'); ?>">
                 <i class="fa-solid fa-user"></i>
                 <span class="tooltip">Profile</span>
+            </a>
+        </li>
+        <li>
+            <a href="<?= base_url('attendance'); ?>">
+                <i class="fa-solid fa-qrcode fa-3x"></i>
+                <span class="tooltip">Attendance</span>
             </a>
         </li>
         <li>
