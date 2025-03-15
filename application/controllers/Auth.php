@@ -38,10 +38,20 @@ class Auth extends CI_Controller
                 'foto_profil' => $user['foto_profil'],
                 'fakultas' => $user['fakultas'], // Tambahkan fakultas
                 'prodi' => $user['prodi'],       // Tambahkan prodi
+                'akses' => $user['akses'],       // Tambahkan prodi
                 'logged_in' => TRUE
             ];
-            $this->session->set_userdata($data);
-            redirect(  'home');
+            $this->session->set_userdata($data);    
+         
+            // Arahkan berdasarkan role
+            if ($this->session->userdata('akses') === 'MHS') {
+                redirect('home'); // Halaman mahasiswa
+            } elseif ($this->session->userdata('akses') === 'DOSEN') {
+                redirect('home'); // Halaman dosen
+            } else {
+                $this->session->set_flashdata('error', 'Akses tidak dikenali!');
+                redirect('auth'); // Redirect kembali ke halaman login
+            }
         } else {
             $this->session->set_flashdata('error', 'Email atau password salah!');
             redirect('');

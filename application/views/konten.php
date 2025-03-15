@@ -5,7 +5,7 @@
         <div class="d-sm-flex align-items-center justify-content-between">
             <!-- <h1 class="h3 mb-0 text-gray-800">SAS - Smart Attendance Student</h1> -->
             <img class="left-in-fade" src="<?= base_url('assets/img/sas.png'); ?>"
-                style="height:50px; margin-top:20px; margin-left: 12%" alt="">
+                style="height:50px; margin-top:20px; margin-left: 8%; margin-bottom: 2%;" alt="">
         </div>
         <!-- Content Row -->
         <div class="row justify-content-end">

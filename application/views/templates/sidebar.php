@@ -13,13 +13,13 @@
             </a>
         </li>
         <li>
-            <a href="<?= base_url('Auth/logout'); ?>">
+            <a href="<?= base_url('attendance'); ?>">
                 <i class="fa-solid fa-calendar-check"></i>
                 <span class="tooltip">Attendance</span>
             </a>
         </li>
         <li>
-            <a href="<?= base_url('Auth/logout'); ?>">
+            <a href="<?= base_url('add_user'); ?>">
                 <i class="fa-solid fa-gear"></i>
                 <span class="tooltip">Settings</span>
             </a>

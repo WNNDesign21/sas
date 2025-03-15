@@ -8,7 +8,7 @@ if (!$this->session->userdata('logged_in')) {
 ?>
 
 <head>
-    <?php $this->load->view('header'); ?>
+    <?php $this->load->view('templates/header'); ?>
 </head>
 
 <body id="page-top" class="bg-white">
@@ -18,7 +18,7 @@ if (!$this->session->userdata('logged_in')) {
     </div>
     <div id="main-content" style="display: none;">
         <!-- Floating Sidebar -->
-        <?php $this->load->view('sidebar'); ?>
+        <?php $this->load->view('templates/sidebar'); ?>
         <!-- Floating Sidebar -->
 
         <!-- Content -->
@@ -26,7 +26,7 @@ if (!$this->session->userdata('logged_in')) {
         <!-- Content -->
 
         <!-- Footer -->
-        <?php $this->load->view('footer'); ?>
+        <?php $this->load->view('templates/footer'); ?>
         <!-- Footer -->
     </div>
 
@@ -76,7 +76,7 @@ if (!$this->session->userdata('logged_in')) {
                     document.getElementById("splash").style.display = "none";
                     document.getElementById("main-content").style.display = "block";
                 }, 500);
-            }, 2000); // Splash screen will be visible for 2 seconds
+            }, 1000); // Splash screen will be visible for 2 seconds
         });
     </script>
 </body>

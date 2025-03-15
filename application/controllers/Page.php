@@ -8,6 +8,6 @@ class Page extends CI_Controller {
 	}
 	public function home() {
         // Menampilkan halaman tables.php
-        $this->load->view('home');
+        $this->load->view('dashboard/home');
 	}
 }
