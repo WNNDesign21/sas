@@ -8,7 +8,7 @@
                 style="height:50px; margin-top:20px; margin-left: 8%; margin-bottom: 2%;" alt="">
         </div>
         <!-- Content Row -->
-        <div class="row justify-content-end">
+        <div class="row justify-content-end right-in-fade">
             <!-- Earnings (Monthly) Card Example -->
             <div class="col-xl-3 col-md-6 mb-4">
                 <div class="card border-left-primary shadow h-100 py-2">
@@ -93,7 +93,7 @@
                 </div>
             </div>
             <!-- Area Card for Chart -->
-            <div class="col-xl-8 col-lg-7">
+            <div class="col-xl-8 col-lg-7 right-in-fade">
                 <div class="card shadow mb-4">
                     <!-- Card Header for Chart & Dropdown -->
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">

@@ -7,7 +7,7 @@
             </a>
         </li>
         <li>
-            <a href="<?= base_url('Auth/logout'); ?>">
+            <a href="<?= base_url('profil_dosen'); ?>">
                 <i class="fa-solid fa-user"></i>
                 <span class="tooltip">Profile</span>
             </a>

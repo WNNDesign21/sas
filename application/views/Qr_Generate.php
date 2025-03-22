@@ -79,7 +79,7 @@ if (strtoupper($this->session->userdata('akses')) !== 'DOSEN') {
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-lg-6">
+                        <div class="col-lg-6 left-in-fade">
                             <div class="card shadow mb-4">
                                 <div class="card-body">
                                     <form method="POST" action="<?= base_url('QrController/generate') ?>">
@@ -116,7 +116,7 @@ if (strtoupper($this->session->userdata('akses')) !== 'DOSEN') {
                             </div>
                         </div>
                         <!-- QR Code Terbaru -->
-                        <div class="col-lg-6">
+                        <div class="col-lg-6 right-in-fade">
                             <div class="card shadow mb-4">
                                 <div class="card-body text-center">
                                     <h5>QR Code Terbaru</h5>

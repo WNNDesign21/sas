@@ -12693,6 +12693,10 @@ body.sidebar-toggled footer.sticky-footer {
     transform: translateY(250px) scale(1.5);
   }
 
+  80% {
+    opacity: 1;
+    transform: translateY(0) scale(0.98);
+  }
   100% {
     opacity: 1;
     transform: translateY(0) scale(1);
@@ -12704,6 +12708,7 @@ body.sidebar-toggled footer.sticky-footer {
   align-content: center;
   animation: zoomInFade 1.5s ease-in-out;
 }
+
 
 /* Untuk Animasi Fade in dari Kiri */
 @keyframes leftInFade {
@@ -12727,6 +12732,51 @@ body.sidebar-toggled footer.sticky-footer {
   align-items: center;
   align-content: center;
   animation: leftInFade 1.5s ease-in-out;
+}
+/* Untuk Animasi Fade in dari kanan */
+@keyframes rightInFade {
+  0% {
+    opacity: 0;
+    transform: translateX(250px);
+  }
+
+  80% {
+    opacity: 1;
+    transform: translateX(-10px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.right-in-fade {
+  align-items: center;
+  align-content: center;
+  animation: rightInFade 1.5s ease-in-out;
+}
+@keyframes rightInFade-06 {
+  0% {
+    opacity: 0;
+    transform: translateX(250px);
+  }
+
+  80% {
+    opacity: 0.6;
+    transform: translateX(-10px);
+  }
+
+  100% {
+    opacity: 0.6;
+    transform: translateX(0);
+  }
+}
+
+.right-in-fade-06 {
+  align-items: center;
+  align-content: center;
+  animation: rightInFade-06 1.5s ease-in-out;
 }
 
 /* Splash Screen */
@@ -12810,4 +12860,45 @@ body.sidebar-toggled footer.sticky-footer {
 }
 .card-body-img:hover {
   transform: scale(1.05);
+}
+.id-card {
+  width: 100%;
+  border-radius: 20px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  text-align: center;
+  padding: 25px;
+  position: relative;
+  overflow: hidden;
+}
+.id-card::before {
+  content: "";
+background: #fff url("../foto_profil/hu.jpg") no-repeat center center;
+background-size: cover;
+opacity: 0.1;
+text-align: center;
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+border-radius: 50%;
+width: 250px;
+height: 250px;
+}
+.profile-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid maroon;
+  margin-bottom: 15px;
+}
+.qr-code {
+  width: 90px;
+  margin-top: 15px;
+}
+.card-footer {
+  background: #6a11cb;
+  color: #fff;
+  padding: 10px;
+  border-radius: 0 0 20px 20px;
 }
