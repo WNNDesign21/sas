@@ -46,7 +46,7 @@ class QrController extends CI_Controller
         }
 
         $mk = $this->QrModel->getMataKuliahById($id_mk);
-        $qr_text = "Mata Kuliah: " . $mk['nama_mk'] . " | Pertemuan: " . $pertemuan;
+        $qr_text = $id_mk . " | " . $mk['nama_mk'] . " | " . $pertemuan;
 
         $filename = 'qr_' . time() . '.png';
         $filepath = 'uploads/qrcodes/' . $filename;
@@ -145,11 +145,23 @@ class QrController extends CI_Controller
         $this->load->model('M_attendance');
 
         // Ambil jadwal berdasarkan NIDN dosen yang login
-        $data['jadwal'] = $this->M_attendance->getJadwalByDosen($nidn);
+        $data['detail_jadwal'] = $this->M_attendance->getJadwalByDosen($nidn);
         $data['qr_codes'] = $this->M_attendance->getQrByDosen($nidn);
 
         // Load tampilan dengan data yang sudah difilter
         $this->load->view('attendance_view', $data);
+    }
+    public function getMataKuliah() {
+        if ($this->input->is_ajax_request()) {
+            $nidn = $this->session->userdata('id_user'); // Ambil nidn dari session
+
+            // Ambil mata kuliah berdasarkan nidn yang sedang login
+            $mata_kuliah = $this->MataKuliahModel->getMataKuliahByNidn($nidn);
+
+            // Kirimkan data mata kuliah dalam format JSON
+            echo json_encode($mata_kuliah);
+            exit;
+        }
     }
 }
 ?>

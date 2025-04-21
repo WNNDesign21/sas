@@ -18,5 +18,14 @@ class QrModel extends CI_Model {
     public function saveQrCode($data) {
         return $this->db->insert('qr_codes', $data);
     }
+    public function getMataKuliahByNidn($nidn) {
+        $this->db->select('mata_kuliah.id_mk, mata_kuliah.nama_mk');
+        $this->db->from('mata_kuliah');
+        $this->db->join('detail_jadwal', 'detail_jadwal.id_mk = mata_kuliah.id_mk');
+        $this->db->where('detail_jadwal.nidn', $nidn);
+        $query = $this->db->get();
+
+        return $query->result();
+    }
 }
 ?>

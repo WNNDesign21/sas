@@ -14,4 +14,15 @@ class M_Absensi extends CI_Model
 
         return $this->db->get()->result();
     }
+    public function get_absensi_by_mahasiswa($id_user)
+    {
+        $this->db->select('m.nama_matkul, COUNT(a.id_absensi) as total_hadir, m.total_pertemuan');
+        $this->db->from('absensi a');
+        $this->db->join('mata_kuliah m', 'a.id_mk = m.id_matkul');
+        $this->db->where('a.npm', $id_user);
+        $this->db->group_by('m.nama_matkul, m.total_pertemuan');
+
+        return $this->db->get()->result();
+    }
+
 }

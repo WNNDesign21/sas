@@ -89,9 +89,9 @@ if (strtoupper($this->session->userdata('akses')) !== 'DOSEN') {
                                             $nidn = $this->session->userdata('id_user');
                                             $mata_kuliah = $this->db->query("
                                                 SELECT DISTINCT mata_kuliah.id_mk, mata_kuliah.nama_mk 
-                                                FROM jadwal 
-                                                JOIN mata_kuliah ON mata_kuliah.id_mk = jadwal.id_mk 
-                                                WHERE jadwal.nidn = '$nidn'
+                                                FROM detail_jadwal 
+                                                JOIN mata_kuliah ON mata_kuliah.id_mk = detail_jadwal.id_mk 
+                                                WHERE detail_jadwal.nidn = '$nidn'
                                             ")->result_array();
                                             ?>
                                             <select name="mata_kuliah" class="form-control" required>
@@ -121,13 +121,33 @@ if (strtoupper($this->session->userdata('akses')) !== 'DOSEN') {
                                 <div class="card-body text-center">
                                     <h5>QR Code Terbaru</h5>
                                     <?php
-                                    $qr_terbaru = $this->db->order_by('id', 'DESC')->get('qr_codes')->row_array();
+                                    $nidn = $this->session->userdata('id_user');
+                                    $this->db->select('qr_codes.*');
+                                    $this->db->from('qr_codes');
+                                    $this->db->join('detail_jadwal', 'qr_codes.id_mk = detail_jadwal.id_mk');
+                                    $this->db->where('detail_jadwal.nidn', $nidn);
+                                    $this->db->order_by('qr_codes.id', 'DESC');
+                                    $qr_terbaru = $this->db->get()->row_array();
+
                                     if ($qr_terbaru): ?>
                                         <a href="#" onclick="showQrCode('<?= base_url($qr_terbaru['qr_image']) ?>')">
                                             <img src="<?= base_url($qr_terbaru['qr_image']) ?>" width="200"
                                                 class="img-fluid shadow-lg mt-3 qr-thumbnail mb-3">
                                         </a>
-                                        <p><strong><?= $qr_terbaru['qr_text'] ?></strong></p>
+                                        <?php
+                                        $qr_parts = explode('|', $qr_terbaru['qr_text'] ?? '');
+
+                                        $id_mk = isset($qr_parts[0]) ? trim($qr_parts[0]) : '-';
+                                        $nama_matakuliah = isset($qr_parts[1]) ? trim($qr_parts[1]) : '-';
+                                        $pertemuan = isset($qr_parts[2]) ? trim($qr_parts[2]) : '-';
+                                        ?>
+                                        <p><strong>
+                                                Kode Kelas: <?= $id_mk ?>
+                                                <br>Matakuliah: <?= $nama_matakuliah ?>
+                                                <br>Pertemuan :
+                                                <?= $pertemuan ?></strong></p>
+
+                                        <!-- <p><strong><?= $qr_terbaru['qr_text'] ?></strong></p> -->
                                     <?php else: ?>
                                         <p>Belum ada QR Code yang di-generate.</p>
                                     <?php endif; ?>
@@ -139,6 +159,35 @@ if (strtoupper($this->session->userdata('akses')) !== 'DOSEN') {
                     <div class="card shadow mb-4" id="qrCodeContainer" style="display: none;">
                         <div class="card-body">
                             <h3 class="mb-3">Daftar QR Code</h3>
+
+                            <!-- Filter Mata Kuliah -->
+                            <form method="GET">
+                                <label for="id_mk">Pilih Mata Kuliah:</label>
+                                <select name="id_mk" id="id_mk" onchange="this.form.submit()"
+                                    class="form-control w-50 mb-3">
+                                    <option value="">-- Semua Mata Kuliah --</option>
+                                    <?php
+                                    // Mendapatkan nidn (user yang sedang login) dari session
+                                    $nidn = $this->session->userdata('id_user'); // Sesuaikan dengan session kamu
+                                    
+                                    // Query untuk mendapatkan mata kuliah yang diampu oleh dosen (berdasarkan nidn)
+                                    $this->db->select('mata_kuliah.id_mk, mata_kuliah.nama_mk');
+                                    $this->db->from('mata_kuliah');
+                                    $this->db->join('detail_jadwal', 'detail_jadwal.id_mk = mata_kuliah.id_mk');
+                                    $this->db->where('detail_jadwal.nidn', $nidn); // Filter berdasarkan nidn (dosen yang login)
+                                    $mata_kuliah = $this->db->get()->result(); // Dapatkan daftar mata kuliah yang diampu oleh dosen
+                                    
+                                    // Loop untuk menampilkan mata kuliah pada dropdown
+                                    foreach ($mata_kuliah as $mk):
+                                        ?>
+                                        <option value="<?= $mk->id_mk ?>" <?= isset($_GET['id_mk']) && $_GET['id_mk'] == $mk->id_mk ? 'selected' : '' ?>>
+                                            <?= $mk->nama_mk ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </form>
+
+                            <!-- Tabel Daftar QR Code -->
                             <table class="table table-bordered text-center">
                                 <thead class="bg-primary text-white">
                                     <tr>
@@ -149,22 +198,41 @@ if (strtoupper($this->session->userdata('akses')) !== 'DOSEN') {
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $qr_codes = $this->db->query("
-                                    SELECT qr_codes.*, mata_kuliah.nama_mk, jadwal.pertemuan 
-                                    FROM qr_codes 
-                                    JOIN mata_kuliah ON qr_codes.id_mk = mata_kuliah.id_mk
-                                    JOIN jadwal ON jadwal.id_mk = mata_kuliah.id_mk 
-                                    WHERE jadwal.nidn = '$nidn'
-                                    AND qr_codes.pertemuan = jadwal.pertemuan
-                                    ORDER BY qr_codes.id DESC
-                                ")->result_array();
+                                    // Mendapatkan nidn (user yang sedang login) dari session
+                                    $nidn = $this->session->userdata('id_user'); // Sesuaikan dengan session kamu
+                                    
+                                    // Ambil id_mk dari parameter GET jika ada (filter mata kuliah)
+                                    $id_mk_filter = $this->input->get('id_mk');
 
+                                    // Query untuk mengambil daftar QR Code berdasarkan nidn (user_id yang login)
+                                    $query = "
+                    SELECT qr_codes.*, mata_kuliah.nama_mk 
+                    FROM qr_codes 
+                    JOIN mata_kuliah ON qr_codes.id_mk = mata_kuliah.id_mk
+                    JOIN detail_jadwal ON detail_jadwal.id_mk = mata_kuliah.id_mk 
+                    WHERE detail_jadwal.nidn = ?
+                ";
 
+                                    // Parameter query dengan nidn yang login
+                                    $params = [$nidn];
+
+                                    // Jika ada filter id_mk (mata kuliah yang dipilih), tambahkan ke query
+                                    if (!empty($id_mk_filter)) {
+                                        $query .= " AND qr_codes.id_mk = ?";
+                                        $params[] = $id_mk_filter;
+                                    }
+
+                                    $query .= " ORDER BY qr_codes.id DESC";
+
+                                    // Eksekusi query
+                                    $qr_codes = $this->db->query($query, $params)->result_array();
+
+                                    // Loop untuk menampilkan data QR Code
                                     foreach ($qr_codes as $qr):
                                         ?>
                                         <tr>
-                                            <td><?= $qr['nama_mk'] ?></td>
-                                            <td>Pertemuan ke-<?= $qr['pertemuan'] ?></td>
+                                            <td><?= htmlspecialchars($qr['nama_mk']) ?></td>
+                                            <td>Pertemuan ke-<?= htmlspecialchars($qr['pertemuan']) ?></td>
                                             <td>
                                                 <a href="#" data-bs-toggle="modal" data-bs-target="#qrModal"
                                                     onclick="showQrCode('<?= base_url($qr['qr_image']) ?>')">
