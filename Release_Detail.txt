@@ -1,0 +1,13 @@
+Release SAS V1.1
+1. Perbaikan Logic Genereate QR Code, hanya bisa di generate di hari dan antara jam_mulai sampai jam_selesai. diluar itu QR Code tidak bisa di generate
+2. API Scan QR untuk Mobile sudah bisa digunkan, Scan QR hanya bisa dilakukan oleh mahasiswa yang terdaftar padamatakuliah tersebut, hari, dan di antara jam_mulai sampai jam_selesai.
+3. Logic Absensi, ketika QR Code di generate maka akan membuat query ke databasae untuk menyimpan data mahasiswa pada matakuliah tersebut dan secara default ststusnya tidak hadir, dan  ketika mahasiswa scan QR Melalui Mobile apps maka statusnya akan terupdate menjadi hadir sesuai dengan barcode matakuliah yang di scan.
+4. add User oleh baak sudah berfungsi, perlu penyesuaian tampilan.
+5. penyesuaian chart sesuai dengan matakuliah yang diambil oleh mahasiswa
+6. penyesuaian Persentasi total absensi sudah di perbaiki
+
+Perbaikan UI:
+1. Kelola Akun pada akun baak perlu di perbaiki agar lebih minimalis dan clean
+2. Kelola Profil pada sema akun perlu diperbaiki agar tampilan lebih clean
+
+SAS V.1.1 release detail
