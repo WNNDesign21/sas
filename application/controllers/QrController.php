@@ -28,102 +28,114 @@ class QrController extends CI_Controller
         $this->load->view('qr_generate', $data);
     }
     public function generate()
-    {
-        $id_mk = $this->input->post('mata_kuliah');
-        $pertemuan = $this->input->post('pertemuan');
-    
-        // Cek apakah QR Code sudah ada
-        $cek_qr = $this->db->get_where('qr_codes', [
-            'id_mk' => $id_mk,
-            'pertemuan' => $pertemuan
-        ])->row_array();
-    
-        if ($cek_qr) {
-            $this->session->set_flashdata('error', 'QR Code untuk pertemuan ini sudah dibuat sebelumnya!');
-            redirect('QrController');
-            return;
-        }
-        
-    
-        // Ambil data jam mulai dan jam selesai dari database
-        $this->load->model('M_Detail_Jadwal');
-        $jadwal = $this->M_Detail_Jadwal->get_jadwal_by_mk($id_mk);
-    
-        if ($jadwal === null) {
-            // Gunakan output untuk mengirimkan response JSON
-            $this->output
-                ->set_content_type('application/json')
-                ->set_output(json_encode([
-                    'status' => false,
-                    'message' => 'Jadwal untuk mata kuliah ini tidak ditemukan.'
-                ]));
-            return;
-        }
-    
-        // Ambil hari dan jam mulai dan jam selesai dari database
-        $hari_ini = date('l');
-        $jam_mulai = $jadwal->jam_mulai;
-        $jam_selesai = $jadwal->jam_selesai;
-    
-        // Waktu sekarang
-        $waktu_sekarang = date("H:i");
-        
-        if ($hari_ini != $jadwal->hari) {
-            $this->session->set_flashdata('error', 'QR Code hanya dapat di-generate pada hari ' . $jadwal->hari);
-            redirect('QrController');
-            // echo json_encode([
-            //     'status' => false,
-            //     'message' => "Mata kuliah ini hanya bisa dimulai pada hari $jadwal->hari"
-            // ]);
-            return;
-        }
-        
-    
-        // Cek apakah waktu sekarang berada dalam rentang yang valid
-        if (strtotime($waktu_sekarang) < strtotime($jam_mulai) || strtotime($waktu_sekarang) > strtotime($jam_selesai)) {
-            $this->session->set_flashdata('error', 'QR Code hanya dapat di-generate antara jam ' . $jam_mulai . ' dan ' . $jam_selesai);
-            redirect('QrController');
-            return;
-        }
-             
-    
-        $mk = $this->QrModel->getMataKuliahById($id_mk);
-        $qr_text = $id_mk . " | " . $mk['nama_mk'] . " | " . $pertemuan;
-    
-        $filename = 'qr_' . time() . '.png';
-        $filepath = 'uploads/qrcodes/' . $filename;
-    
-        $params['data'] = $qr_text;
-        $params['level'] = 'H';
-        $params['size'] = 10;
-        $params['savename'] = FCPATH . $filepath;
-        $this->ciqrcode->generate($params);
-        $this->addLogoToQRCode(FCPATH . $filepath, FCPATH . 'uploads/logo.png');
-    
-        $data = [
-            'id_mk' => $id_mk,
-            'pertemuan' => $pertemuan,
-            'qr_text' => $qr_text,
-            'qr_image' => $filepath
-        ];
-        $this->QrModel->saveQrCode($data);
-    
-        // Tambahkan absensi "tidak hadir" untuk semua mahasiswa
-        $mahasiswa = $this->db->get_where('mhs_mk', ['id_mk' => $id_mk])->result();
-    
-        foreach ($mahasiswa as $mhs) {
-            $insert_data = [
-                'id_mk' => $id_mk,
-                'npm' => $mhs->npm,
-                'tanggal' => date('Y-m-d'),
-                'pertemuan' => $pertemuan,
-                'status' => 'tidak hadir'
-            ];
-            $this->db->insert('absensi', $insert_data);
-        }
-    
+{
+    $id_mk = $this->input->post('mata_kuliah');
+    $pertemuan = $this->input->post('pertemuan');
+
+    // Cek apakah QR Code sudah ada
+    $cek_qr = $this->db->get_where('qr_codes', [
+        'id_mk' => $id_mk,
+        'pertemuan' => $pertemuan
+    ])->row_array();
+
+    if ($cek_qr) {
+        $this->session->set_flashdata('error', 'QR Code untuk pertemuan ini sudah dibuat sebelumnya!');
         redirect('QrController');
+        return;
     }
+
+    // Ambil data jam mulai dan jam selesai dari database
+    $this->load->model('M_Detail_Jadwal');
+    $jadwal = $this->M_Detail_Jadwal->get_jadwal_by_mk($id_mk);
+
+    if (!$jadwal) {
+        $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode([
+                'status' => false,
+                'message' => 'Jadwal untuk mata kuliah ini tidak ditemukan.'
+            ]));
+        return;
+    }
+
+    // Ambil hari dan jam mulai dan jam selesai dari database
+    $nama_hari_inggris = date('l');
+$daftar_hari = [
+    'Monday' => 'Senin',
+    'Tuesday' => 'Selasa',
+    'Wednesday' => 'Rabu',
+    'Thursday' => 'Kamis',
+    'Friday' => 'Jumat',
+    'Saturday' => 'Sabtu',
+    'Sunday' => 'Minggu'
+];
+$hari_ini = $daftar_hari[$nama_hari_inggris];
+    $jam_mulai = $jadwal->jam_mulai;
+    $jam_selesai = $jadwal->jam_selesai;
+
+    // Waktu sekarang
+    $waktu_sekarang = date("H:i");
+
+    if ($hari_ini != $jadwal->hari) {
+        $this->session->set_flashdata('error', 'QR Code hanya dapat di-generate pada hari ' . $jadwal->hari);
+        redirect('QrController');
+        return;
+    }
+
+    // Cek apakah waktu sekarang berada dalam rentang yang valid
+    if (strtotime($waktu_sekarang) < strtotime($jam_mulai) || strtotime($waktu_sekarang) > strtotime($jam_selesai)) {
+        $this->session->set_flashdata('error', 'QR Code hanya dapat di-generate antara jam ' . $jam_mulai . ' dan ' . $jam_selesai);
+        redirect('QrController');
+        return;
+    }
+
+    // Ambil data mata kuliah untuk QR code
+    $mk = $this->QrModel->getMataKuliahById($id_mk);
+    $qr_text = $id_mk . " | " . $mk['nama_mk'] . " | " . $pertemuan;
+
+    // Generate QR Code
+    $filename = 'qr_' . time() . '.png';
+    $filepath = 'uploads/qrcodes/' . $filename;
+
+    $params['data'] = $qr_text;
+    $params['level'] = 'H';
+    $params['size'] = 10;
+    $params['savename'] = FCPATH . $filepath;
+    $this->ciqrcode->generate($params);
+
+    // Menambahkan logo ke QR Code
+    $this->addLogoToQRCode(FCPATH . $filepath, FCPATH . 'uploads/logo.png');
+
+    // Simpan QR Code ke database
+    $data = [
+        'id_mk' => $id_mk,
+        'pertemuan' => $pertemuan,
+        'qr_text' => $qr_text,
+        'qr_image' => $filepath
+    ];
+    $this->QrModel->saveQrCode($data);
+
+    // Menambahkan absensi "tidak hadir" untuk semua mahasiswa
+    $mahasiswa = $this->db->get_where('mhs_mk', ['id_mk' => $id_mk])->result();
+
+    $insert_data = [];
+    foreach ($mahasiswa as $mhs) {
+        $insert_data[] = [
+            'id_mk' => $id_mk,
+            'npm' => $mhs->npm,
+            'tanggal' => date('Y-m-d'),
+            'pertemuan' => $pertemuan,
+            'status' => 'tidak hadir'
+        ];
+    }
+
+    if (!empty($insert_data)) {
+        $this->db->insert_batch('absensi', $insert_data);
+    }
+
+    redirect('QrController');
+}
+
     
     private function addLogoToQRCode($qr_path, $logo_path)
     {

@@ -8,6 +8,7 @@ class Scanqr extends RestController
     public function __construct()
     {
         parent::__construct();
+        date_default_timezone_set('Asia/Jakarta');
         $this->load->database();
     }
 
@@ -30,7 +31,17 @@ class Scanqr extends RestController
     $id_mk = trim($data_parts[0]);
     $pertemuan = trim($data_parts[2]);
     $tanggal = date('Y-m-d');
-    $hari_ini = date('l'); // contoh: Monday, Tuesday...
+    $nama_hari_inggris = date('l');
+$daftar_hari = [
+    'Monday' => 'Senin',
+    'Tuesday' => 'Selasa',
+    'Wednesday' => 'Rabu',
+    'Thursday' => 'Kamis',
+    'Friday' => 'Jumat',
+    'Saturday' => 'Sabtu',
+    'Sunday' => 'Minggu'
+];
+$hari_ini = $daftar_hari[$nama_hari_inggris];
 
     // Ambil jadwal berdasarkan id_mk, npm, dan hari ini
     $jadwal = $this->db->get_where('detail_jadwal', [

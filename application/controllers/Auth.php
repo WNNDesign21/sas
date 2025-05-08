@@ -70,29 +70,33 @@ class Auth extends CI_Controller
         redirect('auth');
     }
 
-    public function upload_foto()
-    {
-        if (!$this->session->userdata('logged_in')) {
-            redirect('auth');
-        }
-        $config['upload_path'] = 'assets/foto_profil/';
-        $config['allowed_types'] = 'jpg|png|jpeg';
-        $config['file_name'] = 'profil_' . $this->session->userdata('user_id');
-
+    public function upload_foto() {
+        $id_user = $this->session->userdata('id_user');
+        $upload_path = APPPATH.'assets/foto_profil/';
+        die("Upload Path: " . $upload_path); // Tambahkan baris ini
+    
+        $config['upload_path'] = $upload_path;
+        $config['allowed_types'] = 'jpg|jpeg|png';
+        $config['max_size'] = 2048;
+        $config['file_name'] = 'profil_' . $id_user;
+        $config['overwrite'] = TRUE;
+    
         $this->load->library('upload', $config);
 
-        if ($this->upload->do_upload('foto_profil')) {
+    
+        if ($this->upload->do_upload('foto')) {
             $file_data = $this->upload->data();
-            $file_path = 'assets/foto_profil/' . $file_data['file_name'];
-
-            $this->M_Login->update_foto_profil($this->session->userdata('user_id'), $file_path);
+            $file_path = APPPATH.'assets/foto_profil/' . $file_data['file_name'];
+    
+            $this->M_Login->update_foto_profil($this->session->userdata('id_user'), $file_path); // Pastikan M_Login sudah diload dan benar
             $this->session->set_userdata('foto_profil', $file_path);
-            redirect('home');
+    
+            echo json_encode(['status' => 'success', 'path' => $file_path]);
         } else {
-            $this->session->set_flashdata('error', $this->upload->display_errors());
-            redirect('home');
+            echo json_encode(['status' => 'error', 'message' => $this->upload->display_errors()]);
         }
     }
+
 
     public function get_chart_data()
     {

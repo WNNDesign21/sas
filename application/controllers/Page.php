@@ -26,4 +26,8 @@ class Page extends CI_Controller {
         // Menampilkan halaman tables.php
         $this->load->view('profil_dosen');
 	}
+	public function setting() {
+        // Menampilkan halaman tables.php
+        $this->load->view('setting');
+	}
 }
