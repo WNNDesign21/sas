@@ -113,10 +113,10 @@
                     <div class="col-xl-8 col-lg-7 right-in-fade">
                         <div class="card shadow mb-4">
                             <div class="id-card">
-                                <img src="assets/foto_profil/profil_4337855201230085.jpg" alt="Foto Profil"
+                                <img src="assets/foto_profil/hu.jpg" alt="Foto Profil"
                                     class="profile-img">
-                                <h4 class="fw-bold"> WENDI NUGRAHA NURRAHMANSYAH</h4>
-                                <p class="text-muted"><strong>NPM:</strong> 4337855201230085</p>
+                                <h4 class="fw-bold"> <?= $this->session->userdata('nama_user'); ?></h4>
+                                <p class="text-muted"><strong>NPM:</strong> <?= $this->session->userdata('id_user'); ?></p>
                                 <p><strong>FAKULTAS</strong> - FICT</p>
                                 <p><strong>Program Studi</strong> - S1 INFORMATIKA</p>
                                 <p><strong>Angkatan:</strong> 2023</p>

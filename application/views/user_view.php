@@ -22,15 +22,92 @@ if (!$this->session->userdata('logged_in')) {
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
   <?php $this->load->view('templates/header'); ?>
 </head>
-<body class="container my-4">
+<body class="container-fluid my-4">
      <!-- Floating Sidebar -->
      <?php $this->load->view('templates/sidebar_baak'); ?>
         <!-- Floating Sidebar -->
 
 <h2>KELOLA AKUN</h2>
+<div class="row justify-content-end right-in-fade">
+            <!-- Earnings (Monthly) Card Example -->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    TOTAL USER</div>
+                                <div class="h6 mb-0 font-weight-bold text-gray-800" id="totalUser">
+                                    <?= $this->session->userdata('nama_user'); ?>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-graduation-cap fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Earnings (Monthly) Card Example -->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    MAHASISWA</div>
+                                <div class="h6 mb-0 font-weight-bold text-gray-800" id="totalMahasiswa">
+                                    <?= $this->session->userdata('nama_user'); ?>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-graduation-cap fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Earnings (Monthly) Card Example -->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    DOSEN</div>
+                                <div class="h6 mb-0 font-weight-bold text-gray-800" id="totalDosen">
+                                    <?= $this->session->userdata('nama_user'); ?>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-graduation-cap fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Earnings (Monthly) Card Example -->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    BAAK / ADMIN</div>
+                                <div class="h6 mb-0 font-weight-bold text-gray-800" id="totalBaak">
+                                    <?= $this->session->userdata('nama_user'); ?>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-graduation-cap fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 <!-- RINGKASAN -->
-<div class="row text-white mb-4">
+<!-- <div class="row text-white mb-4">
   <div class="col-md-3">
     <div class="bg-primary p-3 rounded">Total User: <span id="totalUser">0</span></div>
   </div>
@@ -43,15 +120,11 @@ if (!$this->session->userdata('logged_in')) {
   <div class="col-md-3">
     <div class="bg-warning p-3 rounded">BAAK: <span id="totalBaak">0</span></div>
   </div>
-</div>
+</div> -->
 
-<!-- HEADER DAN TOMBOL -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">
-    Tambah User
-</button>
 
 <!-- FILTER DAN SEARCH -->
-<div class="row mb-3">
+<div class="row mb-3 justify-content-center">
   <div class="col-md-4">
     <select id="filterTipe" class="form-select">
       <option value="semua">Semua Tipe</option>
@@ -62,6 +135,11 @@ if (!$this->session->userdata('logged_in')) {
   </div>
   <div class="col-md-4">
     <input type="text" id="searchInput" class="form-control" placeholder="Cari Nama atau ID User" />
+  </div>
+  <div class="col-md-4 d-flex justify-content-center">
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">
+    Tambah User
+</button>
   </div>
 </div>
 
