@@ -9,12 +9,19 @@ class UserModel extends CI_Model {
     public function getAllDosen() {
         return $this->db->get('dosen')->result_array();
     }
+    public function getAllBaak() {
+        return $this->db->get('baak')->result_array();
+    }
+    public function getAllUser() {
+        return $this->db->get('user')->result_array();
+    }
 
-    public function insertUser($userId, $password, $name, $akses) {
+    public function insertUser($userId, $password, $name, $tipe, $akses) {
         return $this->db->insert('user', [
             'id_user' => $userId,
             'password' => $password,
             'nama_user' => $name,
+            'tipe' => $tipe,
             'akses' => $akses,
         ]);
     }

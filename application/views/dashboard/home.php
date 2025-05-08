@@ -9,7 +9,7 @@ if (!$this->session->userdata('logged_in')) {
 <?php if ($this->session->userdata('akses') !== 'MHS'): ?>
     <script>
         alert("Anda tidak memiliki akses ke halaman ini!");
-        window.location.href = "<?= base_url('dosen_home') ?>"; // Redirect ke halaman utama
+        window.location.href = "<?= base_url('logout') ?>"; // Redirect ke halaman utama
     </script>
 <?php exit; ?>
 <?php endif; ?>

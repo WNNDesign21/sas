@@ -14,6 +14,10 @@ class Page extends CI_Controller {
         // Menampilkan halaman tables.php
         $this->load->view('dashboard/dosen_home');
 	}
+	public function baak_home() {
+        // Menampilkan halaman tables.php
+        $this->load->view('dashboard/baak_home');
+	}
 	public function profil() {
         // Menampilkan halaman tables.php
         $this->load->view('profil');

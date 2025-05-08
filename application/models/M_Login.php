@@ -40,13 +40,13 @@ class M_Login extends CI_Model
     public function get_absensi_by_user($id_user)
     {
         $this->db->select("
-            id_mk,
+            id_mk,nama_matakuliah,
             COUNT(DISTINCT pertemuan) as total_pertemuan,
             SUM(CASE WHEN status = 'Hadir' THEN 1 ELSE 0 END) as hadir
         ");
-        $this->db->where('npm', $id_user);
+        $this->db->where('mahasiswa', $id_user);
         $this->db->group_by('id_mk');
-        $query = $this->db->get('absensi');
+        $query = $this->db->get('v_d_absensi');
         return $query->result_array();
     }
 

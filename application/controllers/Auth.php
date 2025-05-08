@@ -49,6 +49,8 @@ class Auth extends CI_Controller
                 redirect('home'); // Halaman mahasiswa
             } elseif ($this->session->userdata('akses') === 'DOSEN') {
                 redirect('dosen_home'); // Halaman dosen
+            } elseif ($this->session->userdata('akses') === 'ADMIN') {
+                redirect('baak_home'); // Halaman dosen
             } else {
                 $this->session->set_flashdata('error', 'Akses tidak dikenali!');
                 redirect('auth'); // Redirect kembali ke halaman login
@@ -105,7 +107,7 @@ class Auth extends CI_Controller
                 $persentase = 0;
             }
             $data[] = [
-                'matakuliah' => $row['mata_kuliah'],
+                'matakuliah' => $row['nama_matakuliah'],
                 'persentase' => $persentase
             ];
         }

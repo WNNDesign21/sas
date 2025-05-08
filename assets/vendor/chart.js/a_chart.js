@@ -12,6 +12,16 @@ document.addEventListener("DOMContentLoaded", function () {
 			let labels = data.map((item) => `${item.matakuliah}`);
 			let values = data.map((item) => parseFloat(item.persentase));
 
+// Hitung rata-rata
+let total = values.reduce((sum, current) => sum + current, 0);
+let rataRata = total / values.length;
+document.getElementById("totalAbsensiText").textContent = `${rataRata.toFixed(2)}%`;
+const progressBar = document.getElementById("progressBarAbsensi");
+progressBar.style.width = `${rataRata}%`;
+progressBar.setAttribute("aria-valuenow", rataRata.toFixed(2));
+
+// Tampilkan hasil rata-rata di console
+console.log("Rata-rata kehadiran:", rataRata.toFixed(2) + "%");
 			console.log("Labels:", labels);
 			console.log("Values:", values);
 

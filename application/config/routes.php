@@ -53,6 +53,7 @@ $route['default_controller'] = 'Auth';
 $route['api/auth/login'] = 'Auth/proses_login';
 $route['home'] = 'Page/home';
 $route['dosen_home'] = 'Page/dosen_home';
+$route['baak_home'] = 'Page/baak_home';
 $route['profil'] = 'Page/profil';
 $route['profil_dosen'] = 'Page/profil_dosen';
 $route['attendance'] = 'QrController/index';
