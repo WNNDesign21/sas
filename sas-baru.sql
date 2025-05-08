@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 21, 2025 at 05:04 PM
+-- Generation Time: May 08, 2025 at 04:36 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.1.31
 
@@ -41,14 +41,17 @@ CREATE TABLE `absensi` (
 --
 
 INSERT INTO `absensi` (`id_absensi`, `id_mk`, `npm`, `tanggal`, `pertemuan`, `status`) VALUES
-(1, '', 4337855201230085, '2025-02-22', 1, 'HADIR'),
-(2, '', 4337855201230085, '2025-02-22', 1, 'HADIR'),
-(9, '', 4337855201230085, '2025-02-22', 2, 'TIDAK HADIR'),
-(12, '', 4337855201230085, '2025-02-22', 1, 'HADIR'),
-(13, 'FICT1234', 4337855201230085, '2025-04-17', 101, 'HADIR'),
-(15, 'FICT1234', 4337855201230085, '2025-04-17', 90, 'HADIR'),
-(16, 'FICT1234', 4337855201230078, '2025-04-17', 90, 'HADIR'),
-(17, 'INFC115', 4337855201230085, '2025-04-21', 1, 'HADIR');
+(17, 'INFC115', 4337855201230085, '2025-04-21', 1, 'HADIR'),
+(18, 'INFC116', 4337855201230085, '2025-05-08', 1, 'HADIR'),
+(19, 'INFC117', 4337855201230085, '2025-05-08', 1, 'HADIR'),
+(21, 'INFC118', 4337855201230085, '2025-05-08', 1, 'HADIR'),
+(22, 'INFC115', 4337855201230085, '2025-05-08', 2, 'TIDAK HADIR'),
+(23, 'INFC119', 4337855201230085, '2025-05-08', 1, 'HADIR'),
+(24, 'INFC117', 4337855201230085, '2025-05-08', 12, 'HADIR'),
+(25, 'FICT1234', 4337855201230078, '2025-05-08', 90, 'HADIR'),
+(26, 'INFC115', 4337855201230085, '2025-05-08', 15, 'TIDAK HADIR'),
+(27, 'INFC120', 4337855201230084, '2025-05-08', 16, 'HADIR'),
+(28, 'INFC120', 4337855201230084, '2025-05-08', 17, 'HADIR');
 
 -- --------------------------------------------------------
 
@@ -62,6 +65,24 @@ CREATE TABLE `attendance` (
   `session` varchar(50) NOT NULL,
   `qr_code` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `baak`
+--
+
+CREATE TABLE `baak` (
+  `id_baak` varchar(7) NOT NULL,
+  `nama` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `baak`
+--
+
+INSERT INTO `baak` (`id_baak`, `nama`) VALUES
+('baak001', 'KOSWARA');
 
 -- --------------------------------------------------------
 
@@ -85,7 +106,7 @@ CREATE TABLE `detail_jadwal` (
 --
 
 INSERT INTO `detail_jadwal` (`id_jadwal`, `id_mk`, `nidn`, `hari`, `jam_mulai`, `jam_selesai`, `total_pertemuan`, `ruangan`) VALUES
-(1, 'INFC115', 123456782, 'Selasa', '18:30:00', '22:10:00', 16, 'C1-3'),
+(1, 'INFC115', 123456782, 'Kamis', '18:30:00', '22:10:00', 16, 'C1-3'),
 (3, 'INFC116', 123456781, 'Rabu', '18:30:00', '22:10:00', 16, 'LAB-A'),
 (4, 'INFC117', 123456780, 'Senin', '18:30:00', '22:10:00', 16, 'LAB-A'),
 (5, 'INFC119', 123456785, 'Jumat', '19:00:00', '22:10:00', 16, 'LAB-B'),
@@ -116,10 +137,7 @@ INSERT INTO `dosen` (`nidn`, `nama_dosen`, `fakultas`) VALUES
 (123456782, 'DEDIH', 'FICT'),
 (123456783, 'WAFIQA', 'FICT'),
 (123456784, 'RAHMA JUWITA', 'FICT'),
-(123456785, 'OMAN', 'FICT'),
-(123456789, 'Adhi Nur Fajar', 'FICT'),
-(123456790, 'Christopan Tangguh', 'FICT'),
-(123456791, 'Safla Alfarisyi', 'FICT');
+(123456785, 'OMAN', 'FICT');
 
 -- --------------------------------------------------------
 
@@ -237,8 +255,9 @@ CREATE TABLE `mhs` (
 
 INSERT INTO `mhs` (`npm`, `nama`, `prodi`, `fakultas`) VALUES
 (4337855201230078, 'CHRISTOPAN TANGGUH SANTOSA', 'INFORMATIKA', 'FICT'),
-(4337855201230085, 'Wendi Nugraha Nurrahmansyah', 'INFORMATIKA', 'FICT'),
-(4337855201230105, 'FAJAR NUR FARRIJAL', 'MANAJEMEN', 'FMB');
+(4337855201230084, 'ADHI NUR FAJAR', 'INFORMATIKA', 'FICT'),
+(4337855201230085, 'WENDI NUGRAHA NURRAHMANSYAH', 'INFORMATIKA', 'FICT'),
+(4337855201230105, 'FAJAR NUR FARRIJAL', 'INFORMATIKA', 'FICT');
 
 -- --------------------------------------------------------
 
@@ -257,7 +276,9 @@ CREATE TABLE `mhs_mk` (
 --
 
 INSERT INTO `mhs_mk` (`id`, `npm`, `id_mk`) VALUES
-(2, 4337855201230085, 'INFC115');
+(2, 4337855201230085, 'INFC115'),
+(3, 4337855201230085, 'INFC117'),
+(5, 4337855201230084, 'INFC120');
 
 -- --------------------------------------------------------
 
@@ -304,7 +325,13 @@ INSERT INTO `qr_codes` (`id`, `id_mk`, `pertemuan`, `qr_text`, `qr_image`, `crea
 (23, 'INFC117', 100, 'INFC117 | Web Programming 2 | 100', 'uploads/qrcodes/qr_1744895643.png', '2025-04-17 13:14:03'),
 (24, 'INFC115', 2, 'INFC115 | Mobile Programming 2 | 2', 'uploads/qrcodes/qr_1745038907.png', '2025-04-19 05:01:48'),
 (25, 'INFC115', 3, 'INFC115 | Mobile Programming 2 | 3', 'uploads/qrcodes/qr_1745240569.png', '2025-04-21 13:02:50'),
-(26, 'INFC115', 5, 'INFC115 | Mobile Programming 2 | 5', 'uploads/qrcodes/qr_1745240599.png', '2025-04-21 13:03:19');
+(26, 'INFC115', 5, 'INFC115 | Mobile Programming 2 | 5', 'uploads/qrcodes/qr_1745240599.png', '2025-04-21 13:03:19'),
+(27, 'INFC115', 6, 'INFC115 | Mobile Programming 2 | 6', 'uploads/qrcodes/qr_1745637308.png', '2025-04-26 03:15:08'),
+(28, 'INFC117', 12, 'INFC117 | Web Programming 2 | 12', 'uploads/qrcodes/qr_1746690688.png', '2025-05-08 07:51:28'),
+(29, 'INFC120', 15, 'INFC120 | Mobile Apps Project | 15', 'uploads/qrcodes/qr_1746694808.png', '2025-05-08 09:00:08'),
+(30, 'INFC115', 15, 'INFC115 | Mobile Programming 2 | 15', 'uploads/qrcodes/qr_1746694906.png', '2025-05-08 09:01:47'),
+(31, 'INFC120', 16, 'INFC120 | Mobile Apps Project | 16', 'uploads/qrcodes/qr_1746710779.png', '2025-05-08 13:26:19'),
+(32, 'INFC120', 17, 'INFC120 | Mobile Apps Project | 17', 'uploads/qrcodes/qr_1746711049.png', '2025-05-08 13:30:50');
 
 -- --------------------------------------------------------
 
@@ -313,9 +340,10 @@ INSERT INTO `qr_codes` (`id`, `id_mk`, `pertemuan`, `qr_text`, `qr_image`, `crea
 --
 
 CREATE TABLE `user` (
-  `id_user` bigint(20) NOT NULL,
+  `id_user` varchar(50) NOT NULL,
   `password` varchar(16) NOT NULL,
   `nama_user` varchar(50) NOT NULL,
+  `tipe` varchar(50) NOT NULL,
   `akses` enum('ADMIN','DOSEN','MHS') NOT NULL,
   `foto_profil` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -324,13 +352,26 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id_user`, `password`, `nama_user`, `akses`, `foto_profil`) VALUES
-(123456782, '123456', 'DEDIH', 'DOSEN', NULL),
-(123456789, '12345', 'Adhi Nur Fajar', 'DOSEN', NULL),
-(4337855201230078, '123456', 'CHRISTOPAN TANGGUH SANTOSA', 'MHS', NULL),
-(4337855201230084, '12345', 'ADHI NUR FAJAR', 'MHS', NULL),
-(4337855201230085, 'WNNDesign21', 'WENDI NUGRAHA NURRAHMANSYAH', 'MHS', 'assets/foto_profil/profil_4337855201230085.png'),
-(4337855201230105, '12345', 'FAJAR NUR FARRIJAL', 'MHS', 'assets/foto_profil/profil_4337855201230105.png');
+INSERT INTO `user` (`id_user`, `password`, `nama_user`, `tipe`, `akses`, `foto_profil`) VALUES
+('123456780', '112233', 'ANWAR HILMAN', 'Dosen', 'DOSEN', NULL),
+('123456782', '112233', 'DEDIH', 'Dosen', 'DOSEN', NULL),
+('4337855201230078', '123456', 'CHRISTOPAN TANGGUH SANTOSA', 'Mahasiswa', 'MHS', NULL),
+('4337855201230084', '12345', 'ADHI NUR FAJAR', 'Mahasiswa', 'MHS', 'assets/foto_profil/profil_4337855201230084.png'),
+('4337855201230085', 'WNNDesign21', 'WENDI NUGRAHA NURRAHMANSYAH', 'Mahasiswa', 'MHS', 'assets/foto_profil/profil_4337855201230085.png'),
+('4337855201230105', '12345', 'FAJAR NUR FARRIJAL', 'Mahasiswa', 'MHS', 'assets/foto_profil/profil_4337855201230105.png'),
+('baak001', '112233', 'KOSWARA', 'Baak', 'ADMIN', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -339,33 +380,9 @@ INSERT INTO `user` (`id_user`, `password`, `nama_user`, `akses`, `foto_profil`) 
 -- (See below for the actual view)
 --
 CREATE TABLE `user_view` (
-`id_user` bigint(20)
+`id_user` varchar(20)
 ,`nama_user` varchar(255)
 ,`status` varchar(9)
-);
-
--- --------------------------------------------------------
-
---
--- Stand-in structure for view `v_absensi`
--- (See below for the actual view)
---
-CREATE TABLE `v_absensi` (
-`id_absensi` int(10) unsigned
-,`id_mk` varchar(10)
-,`nama_mk` varchar(255)
-,`sks` int(11)
-,`id_jadwal` int(10) unsigned
-,`nidn` bigint(20)
-,`hari` enum('Senin','Selasa','Rabu','Kamis','Jumat','Sabtu')
-,`jam_mulai` time
-,`jam_selesai` time
-,`total_pertemuan` int(2)
-,`ruangan` varchar(255)
-,`npm` bigint(20)
-,`tanggal` date
-,`pertemuan` int(2)
-,`status` enum('HADIR','TIDAK HADIR','IZIN')
 );
 
 -- --------------------------------------------------------
@@ -375,6 +392,18 @@ CREATE TABLE `v_absensi` (
 -- (See below for the actual view)
 --
 CREATE TABLE `v_d_absensi` (
+`id_absensi` int(10) unsigned
+,`id_mk` varchar(10)
+,`nama_matakuliah` varchar(255)
+,`dosen` bigint(20)
+,`hari` enum('Senin','Selasa','Rabu','Kamis','Jumat','Sabtu')
+,`jam_mulai` time
+,`jam_selesai` time
+,`ruangan` varchar(255)
+,`mahasiswa` bigint(20)
+,`tanggal` date
+,`pertemuan` int(2)
+,`status` enum('HADIR','TIDAK HADIR','IZIN')
 );
 
 -- --------------------------------------------------------
@@ -384,16 +413,7 @@ CREATE TABLE `v_d_absensi` (
 --
 DROP TABLE IF EXISTS `user_view`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `user_view`  AS SELECT `mhs`.`npm` AS `id_user`, `mhs`.`nama` AS `nama_user`, 'Mahasiswa' AS `status` FROM `mhs`union all select `dosen`.`nidn` AS `id_user`,`dosen`.`nama_dosen` AS `nama_user`,'Dosen' AS `status` from `dosen`  ;
-
--- --------------------------------------------------------
-
---
--- Structure for view `v_absensi`
---
-DROP TABLE IF EXISTS `v_absensi`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_absensi`  AS SELECT `a`.`id_absensi` AS `id_absensi`, `a`.`id_mk` AS `id_mk`, `mk`.`nama_mk` AS `nama_mk`, `mk`.`sks` AS `sks`, `dj`.`id_jadwal` AS `id_jadwal`, `dj`.`nidn` AS `nidn`, `dj`.`hari` AS `hari`, `dj`.`jam_mulai` AS `jam_mulai`, `dj`.`jam_selesai` AS `jam_selesai`, `dj`.`total_pertemuan` AS `total_pertemuan`, `dj`.`ruangan` AS `ruangan`, `a`.`npm` AS `npm`, `a`.`tanggal` AS `tanggal`, `a`.`pertemuan` AS `pertemuan`, `a`.`status` AS `status` FROM ((`absensi` `a` join `detail_jadwal` `dj` on(`a`.`id_mk` = `dj`.`id_mk`)) join `mata_kuliah` `mk` on(`a`.`id_mk` = `mk`.`id_mk`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `user_view`  AS SELECT `mhs`.`npm` AS `id_user`, `mhs`.`nama` AS `nama_user`, 'Mahasiswa' AS `status` FROM `mhs`union all select `dosen`.`nidn` AS `id_user`,`dosen`.`nama_dosen` AS `nama_user`,'Dosen' AS `status` from `dosen` union all select `baak`.`id_baak` AS `id_user`,`baak`.`nama` AS `nama_user`,'Baak' AS `status` from `baak`  ;
 
 -- --------------------------------------------------------
 
@@ -402,7 +422,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `v_d_absensi`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_d_absensi`  AS SELECT `a`.`id_absensi` AS `id_absensi`, `a`.`id_jadwal` AS `id_jadwal`, `j`.`id_mk` AS `id_mk`, `mk`.`nama_mk` AS `mata_kuliah`, `d`.`nama_dosen` AS `dosen`, `j`.`hari` AS `hari`, `j`.`jam_mulai` AS `jam_mulai`, `j`.`jam_selesai` AS `jam_selesai`, `j`.`ruangan` AS `ruangan`, `a`.`npm` AS `npm`, `m`.`nama` AS `mahasiswa`, `a`.`tanggal` AS `tanggal`, `a`.`pertemuan` AS `pertemuan`, `a`.`status` AS `status` FROM ((((`absensi` `a` join `jadwal` `j` on(`a`.`id_jadwal` = `j`.`id_jadwal`)) join `mata_kuliah` `mk` on(`j`.`id_mk` = `mk`.`id_mk`)) join `mhs` `m` on(`a`.`npm` = `m`.`npm`)) join `dosen` `d` on(`j`.`nidn` = `d`.`nidn`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_d_absensi`  AS SELECT `a`.`id_absensi` AS `id_absensi`, `a`.`id_mk` AS `id_mk`, `mk`.`nama_mk` AS `nama_matakuliah`, `j`.`nidn` AS `dosen`, `j`.`hari` AS `hari`, `j`.`jam_mulai` AS `jam_mulai`, `j`.`jam_selesai` AS `jam_selesai`, `j`.`ruangan` AS `ruangan`, `a`.`npm` AS `mahasiswa`, `a`.`tanggal` AS `tanggal`, `a`.`pertemuan` AS `pertemuan`, `a`.`status` AS `status` FROM ((`absensi` `a` join `detail_jadwal` `j` on(`a`.`id_mk` = `j`.`id_mk`)) join `mata_kuliah` `mk` on(`j`.`id_mk` = `mk`.`id_mk`)) ;
 
 --
 -- Indexes for dumped tables
@@ -422,6 +442,12 @@ ALTER TABLE `attendance`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `baak`
+--
+ALTER TABLE `baak`
+  ADD PRIMARY KEY (`id_baak`);
+
+--
 -- Indexes for table `detail_jadwal`
 --
 ALTER TABLE `detail_jadwal`
@@ -439,9 +465,7 @@ ALTER TABLE `dosen`
 -- Indexes for table `jadwal`
 --
 ALTER TABLE `jadwal`
-  ADD PRIMARY KEY (`id_jadwal`),
-  ADD KEY `jadwal_id_mk_index` (`id_mk`),
-  ADD KEY `jadwal_nidn_index` (`nidn`);
+  ADD PRIMARY KEY (`id_jadwal`);
 
 --
 -- Indexes for table `mata_kuliah`
@@ -475,6 +499,13 @@ ALTER TABLE `user`
   ADD PRIMARY KEY (`id_user`);
 
 --
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `username` (`username`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -482,7 +513,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `absensi`
 --
 ALTER TABLE `absensi`
-  MODIFY `id_absensi` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id_absensi` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `attendance`
@@ -518,19 +549,19 @@ ALTER TABLE `mhs`
 -- AUTO_INCREMENT for table `mhs_mk`
 --
 ALTER TABLE `mhs_mk`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `qr_codes`
 --
 ALTER TABLE `qr_codes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
--- AUTO_INCREMENT for table `user`
+-- AUTO_INCREMENT for table `users`
 --
-ALTER TABLE `user`
-  MODIFY `id_user` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4337855201230106;
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
@@ -541,14 +572,6 @@ ALTER TABLE `user`
 --
 ALTER TABLE `absensi`
   ADD CONSTRAINT `FK_absensi_mhs` FOREIGN KEY (`npm`) REFERENCES `mhs` (`npm`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Constraints for table `jadwal`
---
-ALTER TABLE `jadwal`
-  ADD CONSTRAINT `FK_jadwal_dosen` FOREIGN KEY (`nidn`) REFERENCES `dosen` (`nidn`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `FK_jadwal_dosen_2` FOREIGN KEY (`nidn`) REFERENCES `dosen` (`nidn`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `FK_jadwal_mata_kuliah` FOREIGN KEY (`id_mk`) REFERENCES `mata_kuliah` (`id_mk`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `mhs_mk`
