@@ -30,4 +30,8 @@ class Page extends CI_Controller {
         // Menampilkan halaman tables.php
         $this->load->view('setting');
 	}
+	public function test() {
+        // Menampilkan halaman tables.php
+        $this->load->view('test');
+	}
 }

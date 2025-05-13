@@ -13,7 +13,7 @@
             </a>
         </li>
         <li>
-            <a href="<?= base_url('#'); ?>">
+            <a href="<?= base_url('setting'); ?>">
                 <i class="fa-solid fa-gear"></i>
                 <span class="tooltip">Settings</span>
             </a>
