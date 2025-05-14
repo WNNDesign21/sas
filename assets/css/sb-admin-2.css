@@ -12858,6 +12858,21 @@ body.sidebar-toggled footer.sticky-footer {
   transition: transform 0.3s ease-in-out;
 
 }
+
+/* Pastikan modal dan backdropnya memiliki z-index yang sangat tinggi */
+#detailKehadiranModal {
+  z-index: 9999; /* Pastikan nilai ini lebih tinggi dari elemen lain yang mungkin menghalangi */
+  /* Bootstrap sudah mengatur 'position: fixed;' yang penting untuk z-index */
+}
+
+/* Jika Anda menggunakan backdrop dan ingin memastikan z-indexnya juga tinggi (meskipun biasanya terkait dengan modal) */
+/* Perlu dicatat bahwa Bootstrap membuat elemen .modal-backdrop secara dinamis. */
+/* Jika Anda perlu menyesuaikan backdrop, biasanya lebih baik melalui SASS variabel Bootstrap jika memungkinkan, */
+/* atau pastikan selector Anda cukup spesifik jika menimpa CSS. */
+.modal-backdrop {
+  z-index: 2222; /* Sedikit lebih rendah dari modal itu sendiri */
+}
+
 .card-body-img:hover {
   transform: scale(1.05);
 }

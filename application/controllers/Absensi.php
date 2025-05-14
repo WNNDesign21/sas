@@ -7,6 +7,7 @@ class Absensi extends CI_Controller
     {
         parent::__construct();
         $this->load->model('M_Absensi');
+        $this->load->model('M_chartdosen');
         $this->load->library('session');
 
         // Cek apakah user sudah login
@@ -29,5 +30,20 @@ class Absensi extends CI_Controller
         $data = $this->M_Absensi->get_absensi_by_mahasiswa($id_user);
 
         echo json_encode($data);
+    }
+
+    public function kehadiran_chart() {
+        // Asumsikan id_user disimpan di sesi dengan nama 'user_id' setelah login
+        $id_user = $this->session->userdata('id_user');
+
+        // Pastikan id_user ada dalam sesi
+        if (!$id_user) {
+            // Redirect ke halaman login atau tampilkan pesan error
+            redirect('auth/login'); // Contoh redirect
+            return;
+        }
+
+        $data['kehadiran'] = $this->M_chartdosen->get_rata_kehadiran_dosen($id_user);
+        $this->load->view('dosen_home', $data);
     }
 }

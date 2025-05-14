@@ -113,9 +113,15 @@
                         </div>
                     </div>
                     <!-- Card Body for Chart -->
-                    <div class="card-body">
+                    <!-- <div class="card-body">
                         <div class="chart-area">
-                            <canvas id="absensiChart1"></canvas>
+                            <canvas id="kehadiranChart"></canvas>
+                        </div>
+                    </div> -->
+                    <div class="container mt-5">
+                        <h2 class="text-center">Grafik Kehadiran per Pertemuan</h2>
+                        <div id="kehadiranChartContainer"> <!-- Ganti canvas dengan div sebagai kontainer -->
+                            <!-- Canvas akan digenerate oleh JavaScript di sini -->
                         </div>
                     </div>
                 </div>

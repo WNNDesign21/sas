@@ -50,10 +50,9 @@
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                            FAKULTAS / PRODI</div>
+                                            FAKULTAS</div>
                                         <div class="h6 mb-0 font-weight-bold text-gray-800">
-                                            <?= $this->session->userdata('fakultas'); ?> /
-                                            <?= $this->session->userdata('prodi'); ?>
+                                            <?= $this->session->userdata('fakultas_dosen'); ?>
                                         </div>
                                     </div>
                                     <div class="col-auto">
@@ -118,8 +117,6 @@
                                 <h4 class="fw-bold"> <?= $this->session->userdata('nama_user'); ?></h4>
                                 <p class="text-muted"><strong>NPM:</strong> <?= $this->session->userdata('id_user'); ?></p>
                                 <p><strong>FAKULTAS</strong> - FICT</p>
-                                <p><strong>Program Studi</strong> - S1 INFORMATIKA</p>
-                                <p><strong>Angkatan:</strong> 2023</p>
                                 <h6><strong>UNIVERSITAS HORIZON INDONESIA</strong></h>
                             </div>
                         </div>

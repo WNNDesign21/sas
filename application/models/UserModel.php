@@ -1,26 +1,33 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class UserModel extends CI_Model {
-    public function __construct() {
+class UserModel extends CI_Model
+{
+    public function __construct()
+    {
         parent::__construct();
         $this->load->database();
     }
-    public function getAllMahasiswa() {
+    public function getAllMahasiswa()
+    {
         return $this->db->get('mhs')->result_array();
     }
 
-    public function getAllDosen() {
+    public function getAllDosen()
+    {
         return $this->db->get('dosen')->result_array();
     }
-    public function getAllBaak() {
+    public function getAllBaak()
+    {
         return $this->db->get('baak')->result_array();
     }
-    public function getAllUser() {
+    public function getAllUser()
+    {
         return $this->db->get('user')->result_array();
     }
 
-    public function insertUser($userId, $password, $name, $tipe, $akses) {
+    public function insertUser($userId, $password, $name, $tipe, $akses)
+    {
         return $this->db->insert('user', [
             'id_user' => $userId,
             'password' => $password,
@@ -29,18 +36,22 @@ class UserModel extends CI_Model {
             'akses' => $akses,
         ]);
     }
-    public function getUserById($id_user) {
+    public function getUserById($id_user)
+    {
         return $this->db->where('id_user', $id_user)->get('user')->row_array();
     }
 
-    public function update_foto_profil($id_user, $foto_profil) {
+    public function update_foto_profil($id_user, $foto_profil)
+    {
         $data = array('foto_profil' => $foto_profil);
         $this->db->where('id_user', $id_user);
         return $this->db->update('user', $data);
     }
 
-    public function update_password($id_user, $password_hash) {
-        return $this->db->update('user', ['password' => $password_hash], ['id_user' => $id_user]);
+    public function update_password($id_user, $new_password)
+    {
+        $this->db->where('id_user', $id_user);
+        return $this->db->update('user', ['password' => $new_password]);
     }
 }
 ?>
