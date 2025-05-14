@@ -111,15 +111,84 @@
                     <!-- Area Card for Chart -->
                     <div class="col-xl-8 col-lg-7 right-in-fade">
                         <div class="card shadow mb-4">
-                            <div class="id-card">
-                                <img src="assets/foto_profil/hu.jpg" alt="Foto Profil"
-                                    class="profile-img">
-                                <h4 class="fw-bold"> <?= $this->session->userdata('nama_user'); ?></h4>
-                                <p class="text-muted"><strong>NPM:</strong> <?= $this->session->userdata('id_user'); ?></p>
-                                <p><strong>FAKULTAS</strong> - FICT</p>
-                                <h6><strong>UNIVERSITAS HORIZON INDONESIA</strong></h>
+                            <div class="card">
+                                <div class="card-header">
+                                    <ul class="nav nav-tabs card-header-tabs" id="profilTabs" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" id="idcard-tab" data-toggle="tab" href="#id-card"
+                                                role="tab" aria-controls="idcard" aria-selected="true">ID Card</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="foto-tab" data-toggle="tab" href="#foto" role="tab"
+                                                aria-controls="foto" aria-selected="false">Ganti Foto</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="password-tab" data-toggle="tab" href="#password"
+                                                role="tab" aria-controls="password" aria-selected="false">Ubah
+                                                Password</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="tab-content" id="profilTabsContent">
+                                    <div class="id-card tab-pane fade show active" id="id-card" role="tabpanel"
+                                        aria-labelledby="idcard-tab">
+                                        <img src="<?= base_url($this->session->userdata('foto_profil') ?: 'assets/foto_profil/hu.jpg'); ?>"
+                                            alt="Foto Profil" class="profile-img">
+                                        <h4 class="fw-bold"> <?= $this->session->userdata('nama_user'); ?></h4>
+                                        <p class="text-muted"><strong>NPM:</strong>
+                                            <?= $this->session->userdata('id_user'); ?></p>
+                                        <p><strong>FAKULTAS</strong> - <?= $this->session->userdata('fakultas'); ?></p>
+                                        <p><strong>Program Studi</strong> - <?= $this->session->userdata('prodi'); ?>
+                                        </p>
+                                        <p><strong>Angkatan:</strong> 2023</p>
+                                        <h6><strong>UNIVERSITAS HORIZON INDONESIA</strong></h>
+                                    </div>
+                                    <!-- Tab 2: Ganti Foto -->
+                                    <div class="tab-pane fade justify-content-center" id="foto" role="tabpanel"
+                                        aria-labelledby="foto-tab">
+                                        <?php echo form_open_multipart('Setting/upload_foto'); ?>
+                                        <div class="form-group">
+                                            <label>Foto Profil Saat Ini:</label><br>
+                                            <img src="<?= base_url($this->session->userdata('foto_profil') ?: 'assets/foto_profil/hu.jpg'); ?>"
+                                                alt="Foto Profil" class="img-thumbnail" width="150">
+                                            <small class="form-text text-muted">Ukuran maksimal 2MB, format JPG, JPEG,
+                                                PNG.</small>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="foto_profil">Pilih Foto Baru:</label>
+                                            <input type="file" class="form-control-file" id="foto_profil" name="foto"
+                                                required>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Simpan Foto Profil</button>
+                                        <?php echo form_close(); ?>
+                                    </div>
+
+                                    <!-- Tab 3: Ubah Password -->
+                                    <div class="tab-pane fade" id="password" role="tabpanel"
+                                        aria-labelledby="password-tab">
+                                        <form action="<?= base_url('Setting/update_password') ?>" method="post">
+                                            <div class="form-group">
+                                                <label>Password Lama</label>
+                                                <input type="password" name="old_password" class="form-control"
+                                                    required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Password Baru</label>
+                                                <input type="password" name="new_password" class="form-control"
+                                                    required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Konfirmasi Password Baru</label>
+                                                <input type="password" name="confirm_password" class="form-control"
+                                                    required>
+                                            </div>
+                                            <button type="submit" class="btn btn-warning">Ubah Password</button>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>

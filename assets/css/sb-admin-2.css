@@ -12870,7 +12870,7 @@ body.sidebar-toggled footer.sticky-footer {
 /* Jika Anda perlu menyesuaikan backdrop, biasanya lebih baik melalui SASS variabel Bootstrap jika memungkinkan, */
 /* atau pastikan selector Anda cukup spesifik jika menimpa CSS. */
 .modal-backdrop {
-  z-index: 2222; /* Sedikit lebih rendah dari modal itu sendiri */
+  z-index: 1; /* Sedikit lebih rendah dari modal itu sendiri */
 }
 
 .card-body-img:hover {

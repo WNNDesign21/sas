@@ -70,10 +70,6 @@ class Auth extends CI_Controller
         redirect('auth');
     }
 
-    public function test_path()
-    {
-        echo 'FCPATH: ' . FCPATH;
-    }
     public function get_chart_data()
     {
         $id_user = $this->session->userdata('id_user');
