@@ -45,7 +45,11 @@ class Setting extends CI_Controller
             $this->M_Login->update_foto_profil($id_user, $relative_path);
             $this->session->set_userdata('foto_profil', $relative_path);
             $this->session->set_flashdata('message', 'Foto Profil berhasil diubah!');
-            redirect('profil');
+            if ($this->session->userdata('akses') === 'DOSEN') {
+                redirect('profil_dosen');
+            } else {
+                redirect('profil');
+            }
         } else {
             echo json_encode(['status' => 'error', 'message' => $this->upload->display_errors()]);
         }

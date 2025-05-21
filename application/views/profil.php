@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
-
+<?php $this->load->view('templates/akses'); ?>
 <head>
     <?php $this->load->view('templates/header'); ?>
 </head>
@@ -177,9 +177,9 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
+            <?php $this->load->view('jadwal'); ?>
         </div>
     </div>
     </div>

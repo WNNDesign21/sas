@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
-
+<?php $this->load->view('templates/akses_dosen'); ?>
 <head>
     <?php $this->load->view('templates/header'); ?>
 </head>
@@ -207,6 +207,26 @@
     <script src="assets/js/demo/chart-area-demo.js"></script>
     <script src="assets/js/demo/chart-pie-demo.js"></script>
     <script src="assets/vendor/chart.js/a_chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <?php if ($this->session->flashdata('message')): ?>
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil',
+                text: "<?php echo $this->session->flashdata('message'); ?>",
+                confirmButtonText: 'OK'
+            });
+        </script>
+    <?php elseif ($this->session->flashdata('error')): ?>
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal',
+                text: "<?php echo $this->session->flashdata('error'); ?>",
+                confirmButtonText: 'OK'
+            });
+        </script>
+    <?php endif; ?>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             setTimeout(() => {
@@ -219,5 +239,5 @@
         });
     </script>
 </body>
-
+<?php $this->load->view('templates/footer'); ?>
 </html>
